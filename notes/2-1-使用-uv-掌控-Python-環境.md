@@ -28,7 +28,8 @@ Python 專案環境可以分成六個層次：
 | Python 直譯器     | 真正讀取並執行 Python 程式碼的執行檔           | `.venv/bin/python`（Python 3.11.14） |
 | `uv.lock`         | 鎖定依賴解析結果，供不同電腦重建相同的套件環境 | `uv.lock`                            |
 
-真正執行程式的始終是某個 Python 直譯器。「一般 Python」和「專案預設 Python」只是在描述直譯器的來源；`.python-version` 則是版本要求，讓 uv 知道該替專案選哪個直譯器。
+真正執行程式的始終是某個 Python 直譯器。「一般 Python」和「專案預設 Python」只是在描述直譯器的來源；`.python-version`
+則是版本要求，讓 uv 知道該替專案選哪個直譯器。
 
 ```text
 .python-version 提出預設版本要求
@@ -47,12 +48,14 @@ python app.py
 uv run python app.py
 ```
 
-- `python app.py`：Shell 依 `PATH` 找到名為 `python` 的執行檔，可能來自系統、Homebrew、pyenv、已啟用的虛擬環境或其他來源。
+- `python app.py`：Shell 依 `PATH` 找到名為 `python`
+  的執行檔，可能來自系統、Homebrew、pyenv、已啟用的虛擬環境或其他來源。
 - `uv run python app.py`：uv 先確認專案環境，再使用專案 `.venv` 裡的 Python 直譯器執行程式。
 
 > uv 可以獨立安裝，但 uv 本身不會解讀 Python 程式碼；執行專案時仍然要找到或下載合適的 Python 直譯器。
 
-「uv 不依賴 pyenv」不等於「uv 永遠選到 Python 3.11」。若沒有明確的版本要求，uv 仍可能從系統、Homebrew、pyenv 或 uv 自己管理的 Python 中選擇直譯器。
+「uv 不依賴 pyenv」不等於「uv 永遠選到 Python
+3.11」。若沒有明確的版本要求，uv 仍可能從系統、Homebrew、pyenv 或 uv 自己管理的 Python 中選擇直譯器。
 
 ---
 
@@ -94,7 +97,8 @@ the project `requires-python` value of `>=3.13`.
 uv init
 ```
 
-uv 會依目前電腦可找到的 Python 與版本偏好，決定初始化時要寫入哪個版本要求，所以不同電腦的結果可能不同。本機同時有 uv 管理的 Python 3.13.3 和 Homebrew Python 3.11.14。uv 預設偏好 managed Python，初始化時可能以 3.13 建立專案設定。
+uv 會依目前電腦可找到的 Python 與版本偏好，決定初始化時要寫入哪個版本要求，所以不同電腦的結果可能不同。本機同時有 uv 管理的 Python
+3.13.3 和 Homebrew Python 3.11.14。uv 預設偏好 managed Python，初始化時可能以 3.13 建立專案設定。
 
 只依賴 `uv init` 自動選版，無法保證不同電腦會使用同一個版本。
 
@@ -216,7 +220,9 @@ uv sync --locked
 uv run python --version
 ```
 
-uv 會讀取 `.python-version`、`pyproject.toml` 與 `uv.lock`。`.python-version` 提供預設版本要求，`requires-python` 檢查該版本是否在專案允許的範圍內，`uv.lock` 則提供鎖定的依賴解析結果。若本機沒有合適的 Python 直譯器，uv 預設可以自行下載，再用它建立 `.venv`。
+uv 會讀取 `.python-version`、`pyproject.toml` 與 `uv.lock`。`.python-version` 提供預設版本要求，`requires-python`
+檢查該版本是否在專案允許的範圍內，`uv.lock`
+則提供鎖定的依賴解析結果。若本機沒有合適的 Python 直譯器，uv 預設可以自行下載，再用它建立 `.venv`。
 
 ### 4. Git 應提交哪些檔案
 
@@ -258,9 +264,11 @@ git check-ignore .venv .ipynb_checkpoints/checkpoint.ipynb
 uv python pin --global 3.11
 ```
 
-這項設定會建立全域的版本要求。當目前專案沒有自己的 `.python-version` 時，uv 可以把它當成後備選擇；它不會強制所有專案使用同一個直譯器。
+這項設定會建立全域的版本要求。當目前專案沒有自己的 `.python-version`
+時，uv 可以把它當成後備選擇；它不會強制所有專案使用同一個直譯器。
 
-但它不會提交到 Git，也不會出現在另一臺電腦。專案要跨電腦使用，仍要靠專案內的 `.python-version`、`pyproject.toml` 與 `uv.lock`。
+但它不會提交到 Git，也不會出現在另一臺電腦。專案要跨電腦使用，仍要靠專案內的 `.python-version`、`pyproject.toml` 與
+`uv.lock`。
 
 ---
 
@@ -325,7 +333,8 @@ uv run python --version
 uv run python -c "import sys; print(sys.executable)"
 ```
 
-`uv python find` 顯示 uv 依目前設定找到的 Python；`sys.executable` 顯示執行這次命令的直譯器路徑。在專案同步完成後，後者通常應指向目前專案的 `.venv`。
+`uv python find` 顯示 uv 依目前設定找到的 Python；`sys.executable`
+顯示執行這次命令的直譯器路徑。在專案同步完成後，後者通常應指向目前專案的 `.venv`。
 
 ### 第 5 步：同步環境
 
@@ -353,7 +362,7 @@ uv sync --locked
 
 ---
 
-## 九、我應該記住的最短版本
+## 九、常用指令整理
 
 ### 新專案
 
@@ -405,7 +414,8 @@ uv remove 套件名稱
 uv tree
 ```
 
-課程若要求 `pip install <package>`，在這個專案中改用 `uv add <package>`。不要只在 Notebook 裡執行 `!pip install`；那樣安裝的套件不會自動寫入 `pyproject.toml` 與 `uv.lock`，換電腦後便無法靠鎖檔完整重建。
+課程若要求 `pip install <package>`，在這個專案中改用 `uv add <package>`。不要只在 Notebook 裡執行
+`!pip install`；那樣安裝的套件不會自動寫入 `pyproject.toml` 與 `uv.lock`，換電腦後便無法靠鎖檔完整重建。
 
 ---
 
@@ -424,7 +434,8 @@ uv run jupyter lab
 source .venv/bin/activate
 ```
 
-如果只想臨時啟動 Jupyter，不把它加入專案依賴，可以使用 `uv run --with jupyter jupyter lab`。本專案已經執行過 `uv add jupyterlab`，直接使用 `uv run jupyter lab` 即可。
+如果只想臨時啟動 Jupyter，不把它加入專案依賴，可以使用 `uv run --with jupyter jupyter lab`。本專案已經執行過
+`uv add jupyterlab`，直接使用 `uv run jupyter lab` 即可。
 
 啟動後，Terminal 會顯示類似下面的網址：
 
@@ -434,7 +445,8 @@ http://localhost:8888/lab
 
 瀏覽器若沒有自動開啟，將 Terminal 顯示的完整網址複製到瀏覽器。不要把 token 網址傳給其他人。
 
-停止 JupyterLab 時，回到啟動它的 Terminal 按 `Ctrl+C`。只關閉瀏覽器分頁，Jupyter server 與 Notebook kernel 可能仍在執行。
+停止 JupyterLab 時，回到啟動它的 Terminal 按 `Ctrl+C`。只關閉瀏覽器分頁，Jupyter server 與 Notebook
+kernel 可能仍在執行。
 
 ### 確認 Notebook 用對了 Python
 
@@ -475,7 +487,8 @@ uv run jupyter lab
 | 直接依賴           | `uv tree --depth 1`                                    | `jupyterlab`、`pandas`       |
 | 鎖檔是否與設定一致 | `uv lock --check`                                      | 通過                         |
 
-這些版本會隨後續安裝或升級而改變。結果不同時，先檢查 `pyproject.toml` 與 `uv.lock`，不要直接刪除 `.venv` 或重新執行 `uv init`。
+這些版本會隨後續安裝或升級而改變。結果不同時，先檢查 `pyproject.toml` 與 `uv.lock`，不要直接刪除 `.venv` 或重新執行
+`uv init`。
 
 ---
 
@@ -499,7 +512,8 @@ uv run jupyter lab
 <summary>參考答案</summary>
 
 1. 不會；uv 仍需要依版本要求，從可用來源選擇 Python 直譯器。
-2. `.python-version` 向 uv 提出專案的預設版本要求；`requires-python` 宣告專案允許的 Python 版本範圍。兩者都不是實際執行程式的直譯器。
+2. `.python-version` 向 uv 提出專案的預設版本要求；`requires-python`
+   宣告專案允許的 Python 版本範圍。兩者都不是實際執行程式的直譯器。
 3. 因為 Python 3.11 不符合「最低需要 Python 3.13」的條件。
 4. `uv init --python 3.11`。
 5. `uv init` 用來建立新專案；既有專案已有設定，只需 `uv sync --locked`。
@@ -508,7 +522,8 @@ uv run jupyter lab
 8. 它會更新 `pyproject.toml`、`uv.lock` 與 `.venv`。
 9. `uv run` 會檢查並同步專案環境，再於該環境內啟動 JupyterLab。
 10. 在 Notebook 執行 `print(sys.executable)`，確認路徑指向目前專案的 `.venv`。
-11. `python app.py` 由 Shell 依 `PATH` 尋找直譯器；`uv run python app.py` 由 uv 確認專案環境後，使用專案 `.venv` 裡的直譯器。
+11. `python app.py` 由 Shell 依 `PATH` 尋找直譯器；`uv run python app.py` 由 uv 確認專案環境後，使用專案 `.venv`
+    裡的直譯器。
 
 </details>
 
