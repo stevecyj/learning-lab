@@ -1,0 +1,4 @@
+interface:
+  display_name: "逐段文章審稿"
+  short_description: "逐段檢查文章標題與正文，參照前後文提出修改並逐項等待使用者確認"
+  default_prompt: "Use $review-article-stepwise to review this article one heading or paragraph at a time with surrounding context."
