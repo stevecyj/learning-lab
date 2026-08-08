@@ -12,6 +12,12 @@
   Python 內建運算與對應函式的總覽；用於查找算術、比較、成員與同一性運算。
 - [Python 3.11 官方文件：`math`](https://docs.python.org/3.11/library/math.html)
   標準數學函式與 `math.pi` 等常數；用於一般浮點數數學計算。
+- [Python 官方文件：Lexical analysis — Numeric literals](https://docs.python.org/3/reference/lexical_analysis.html#numeric-literals)
+  整數、浮點數與虛數字面值的正式語法；用於核對進位前綴、科學記號與 `j` 的語意。
+- [Python 官方文件：Built-in Types](https://docs.python.org/3/library/stdtypes.html)
+  `int`、`float`、`complex`、`bool`、序列、集合與映射的官方分類和行為。
+- [Python 官方教學：Floating-Point Arithmetic](https://docs.python.org/3/tutorial/floatingpoint.html)
+  二進位浮點數的表示誤差與比較方式；用於避免把近似值誤認為精確十進位值。
 - [Python 官方教學：Errors and Exceptions](https://docs.python.org/3.11/tutorial/errors.html)
   說明例外與 `try` / `except`；用於處理數字轉換等可預期錯誤。
 - [PEP 8：Style Guide for Python Code](https://peps.python.org/pep-0008/)
