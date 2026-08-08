@@ -1,5 +1,12 @@
 # 2-1 使用 uv 管理 Python 環境
 
+這篇筆記不是從一套順利的安裝流程開始，而是從一次 Python 環境設定失敗開始。準備課程環境時，我先用 uv 初始化專案；uv 依本機狀態選了 Python
+3.13，但課程預計使用 3.11。當我接著執行 `uv python pin 3.11`，便遇到 `.python-version` 與 `pyproject.toml` 中
+`requires-python` 互相衝突的錯誤。
+
+為了找出問題，我重新整理了 uv、Python 直譯器、`.venv`、版本設定與 `uv.lock`
+之間的關係，也把課程後續會用到的套件管理、跨電腦重建環境和 JupyterLab 操作一起記錄下來。這篇文章既是排錯紀錄，也是 uv 入門筆記；如果你也在初始化專案時碰到版本不一致，或不知道該從哪個設定開始檢查，可以按照本文的順序，建立一套能夠重現的 Python 環境。
+
 ## 這一節要學會什麼
 
 完成這一節後，我應該能夠：
@@ -98,7 +105,8 @@ uv init
 ```
 
 uv 會依目前電腦可找到的 Python 與版本偏好，決定初始化時要寫入哪個版本要求，所以不同電腦的結果可能不同。本機同時有 uv 管理的 Python
-3.13.3 和 Homebrew Python 3.11.14。uv 預設偏好使用自己管理的 Python（managed Python），初始化時可能以 3.13 建立專案設定。
+3.13.3 和 Homebrew Python 3.11.14。uv 預設偏好使用自己管理的 Python（managed
+Python），初始化時可能以 3.13 建立專案設定。
 
 只依賴 `uv init` 自動選版，無法保證不同電腦會使用同一個版本。
 
@@ -220,8 +228,8 @@ uv sync --locked
 uv run python --version
 ```
 
-uv 會讀取 `.python-version`、`pyproject.toml` 與 `uv.lock`。`.python-version` 提供預設版本要求，uv 會依 `requires-python`
-檢查該版本是否在專案允許的範圍內；`uv.lock`
+uv 會讀取 `.python-version`、`pyproject.toml` 與 `uv.lock`。`.python-version` 提供預設版本要求，uv 會依
+`requires-python` 檢查該版本是否在專案允許的範圍內；`uv.lock`
 則提供鎖定的依賴解析結果。若本機沒有合適的 Python 直譯器，uv 預設可以自行下載，再用它建立 `.venv`。
 
 ### 4. Git 應提交哪些檔案
@@ -267,8 +275,8 @@ uv python pin --global 3.11
 這項設定會建立全域的版本要求。當目前專案沒有自己的 `.python-version`
 時，uv 可以把它當成後備選擇，但不會強制所有專案使用同一個直譯器。
 
-這個全域設定不會提交到 Git，也不會出現在另一臺電腦。專案要跨電腦使用，仍要靠專案內的 `.python-version`、`pyproject.toml` 與
-`uv.lock`。
+這個全域設定不會提交到 Git，也不會出現在另一臺電腦。專案要跨電腦使用，仍要靠專案內的 `.python-version`、`pyproject.toml`
+與 `uv.lock`。
 
 ---
 
@@ -354,7 +362,7 @@ uv sync --locked
 
 | 現象                                  | 原因                                 | 處理方式                                                 |
 | ------------------------------------- | ------------------------------------ | -------------------------------------------------------- |
-| `pyenv: version ... is not installed` | `uv` 路徑指向 pyenv shim              | 安裝獨立 uv，確認 `command -v uv`                        |
+| `pyenv: version ... is not installed` | `uv` 路徑指向 pyenv shim             | 安裝獨立 uv，確認 `command -v uv`                        |
 | `3.11 is incompatible with >=3.13`    | Python pin 與 `requires-python` 衝突 | 確認專案需求後，調整 `requires-python`                   |
 | 新電腦缺少 Python                     | 本機沒有符合版本要求的直譯器         | 執行 `uv sync`，讓 uv 自動取得，或先 `uv python install` |
 | 套件版本在不同電腦不一致              | 沒有提交或使用 `uv.lock`             | 提交 `uv.lock`，使用 `uv sync --locked`                  |
@@ -415,7 +423,8 @@ uv tree
 ```
 
 若課程要求 `pip install <package>`，本專案改用 `uv add <package>`。不要只在 Notebook 裡執行
-`!pip install`；那樣安裝的套件不會自動寫入 `pyproject.toml` 與 `uv.lock`，換電腦後執行 `uv sync --locked` 也不會安裝這個套件。
+`!pip install`；那樣安裝的套件不會自動寫入 `pyproject.toml` 與 `uv.lock`，換電腦後執行 `uv sync --locked`
+也不會安裝這個套件。
 
 ---
 
@@ -477,15 +486,15 @@ uv run jupyter lab
 
 以下是撰寫本文時的檢查結果：
 
-| 檢查項目           | 命令                                                   | 檢查結果                              |
-| ------------------ | ------------------------------------------------------ | ------------------------------------- |
-| 預設版本要求       | `cat .python-version`                                  | `3.11`                                |
-| 專案相容範圍       | `rg '^requires-python' pyproject.toml`                 | `requires-python = ">=3.11"`        |
-| 實際直譯器版本     | `uv run python --version`                              | Python 3.11.14                        |
-| 實際直譯器路徑     | `uv run python -c "import sys; print(sys.executable)"` | 專案內的 `.venv/bin/python`         |
-| JupyterLab         | `uv run jupyter lab --version`                         | 4.6.2                                 |
-| 直接依賴           | `uv tree --depth 1`                                    | `jupyterlab`、`notebook`、`pandas`   |
-| 鎖檔是否與設定一致 | `uv lock --check`                                      | 通過                                  |
+| 檢查項目           | 命令                                                   | 檢查結果                           |
+| ------------------ | ------------------------------------------------------ | ---------------------------------- |
+| 預設版本要求       | `cat .python-version`                                  | `3.11`                             |
+| 專案相容範圍       | `rg '^requires-python' pyproject.toml`                 | `requires-python = ">=3.11"`       |
+| 實際直譯器版本     | `uv run python --version`                              | Python 3.11.14                     |
+| 實際直譯器路徑     | `uv run python -c "import sys; print(sys.executable)"` | 專案內的 `.venv/bin/python`        |
+| JupyterLab         | `uv run jupyter lab --version`                         | 4.6.2                              |
+| 直接依賴           | `uv tree --depth 1`                                    | `jupyterlab`、`notebook`、`pandas` |
+| 鎖檔是否與設定一致 | `uv lock --check`                                      | 通過                               |
 
 這些版本會隨後續安裝或升級而改變。若檢查結果不同，先檢查 `pyproject.toml` 與 `uv.lock`，不要直接刪除 `.venv` 或重新執行
 `uv init`。
