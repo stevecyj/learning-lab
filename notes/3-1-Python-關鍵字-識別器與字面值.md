@@ -9,11 +9,11 @@
 3. 檢查名稱是否撞到 Python 關鍵字。
 4. 使用清楚且一致的命名方式表達程式意圖。
 5. 看懂常見的字串、數字與布林值寫法。
-6. 不靠猜測，直接用 Python 工具驗證名稱。
+6. 使用 Python 工具驗證名稱。
 
 ---
 
-## 一、三個最底層的概念
+## 一、三個基本概念
 
 ### Keyword：Python 保留的關鍵字
 
@@ -28,7 +28,7 @@ True
 False
 ```
 
-關鍵字大小寫有別：
+關鍵字區分大小寫：
 
 ```python
 import keyword
@@ -41,7 +41,7 @@ print(keyword.iskeyword("IF"))  # False
 
 ### Identifier：程式中的名稱
 
-Identifier 是用來辨認物件的名稱，例如：
+Identifier（識別器）是程式中使用的名稱，例如變數、函式與類別名稱：
 
 ```python
 user_name = "Steve"
@@ -63,9 +63,9 @@ class UserAccount:
 - 不能以數字開頭。
 - 不能包含減號、空白等不合法符號。
 - 不能使用 Python 關鍵字。
-- Python 大小寫有別。
+- Python 名稱區分大小寫。
 
-```python
+```text
 user_name    # 格式合法
 _result      # 格式合法
 user2        # 格式合法
@@ -74,7 +74,7 @@ user-name    # 格式不合法：減號會被當成運算子
 for          # 格式合法，但它是關鍵字
 ```
 
-Python 實際上也支援 Unicode identifier，因此下面的名稱在技術上可以成立：
+Python 也支援 Unicode identifier，因此下面的名稱是合法的：
 
 ```python
 使用者名稱 = "Steve"
@@ -85,7 +85,7 @@ Python 實際上也支援 Unicode identifier，因此下面的名稱在技術上
 
 ### Literal：直接寫在程式碼中的值
 
-Literal 是某些內建型別之固定值的程式碼表示法。
+Literal（字面值）是直接寫在程式碼中、用來表示固定值的語法。
 
 ```python
 30          # 十進位整數
@@ -103,7 +103,7 @@ age = 30
 ```
 
 - `age` 是 identifier。
-- `=` 是指定運算子。
+- `=` 是指定敘述中的符號。
 - `30` 是 integer literal。
 
 `True` 與 `False` 是 `bool` 型別的兩個固定值。初學教材常把它們稱為布林字面值；更精確地說，它們也是不能重新指定的 Python 關鍵字與內建常數。
@@ -200,7 +200,7 @@ keyword.kwlist
 keyword.keywordlist
 ```
 
-Python 3.11 另外有 soft keyword。它們只在特定語法情境中扮演關鍵字：
+Python 3.11 另外還有 soft keyword（軟關鍵字）。它們只在特定語法情境中扮演關鍵字：
 
 ```python
 print(keyword.softkwlist)
@@ -351,7 +351,7 @@ for name in names:
     )
 ```
 
-先預測每列結果，再執行 Cell。預測錯誤的地方，才是最值得記錄的部分。
+先預測每列結果，再執行 Cell。若預測錯誤，記下錯在哪裡。
 
 ### 練習三：建立可重用的檢查函式
 
@@ -391,7 +391,7 @@ print(message)
 print(is_active)
 ```
 
-完成後執行一次 Restart Kernel and Run All Cells，確認練習不依賴 Notebook 的舊狀態。
+完成後執行一次 `Restart Kernel and Run All Cells`，確認練習不依賴 Notebook 的舊狀態。
 
 ---
 
@@ -436,22 +436,22 @@ print(is_active)
 
 ## 九、總結
 
-這一節最重要的習慣是：
+命名時依序檢查：
 
 > 命名先確認格式合法，再確認沒有撞到關鍵字，最後確認名稱能清楚表達用途。
 
-最常用的檢查方式是：
+本節使用的檢查方式是：
 
 ```python
 name.isidentifier() and not keyword.iskeyword(name)
 ```
 
-但工具只能檢查語法條件，不能替我判斷名稱是否清楚。專業程式碼同時需要：
+工具只能檢查語法條件，不能替我判斷名稱是否清楚。寫程式時還要顧到：
 
-1. 合法的名稱。
-2. 準確的值表示。
-3. 一致的命名慣例。
-4. 可由工具驗證的判斷方式。
+1. 名稱是否合法且能準確表達用途。
+2. 值的表示是否正確。
+3. 命名方式是否一致。
+4. 能用工具驗證的規則，是否真的執行過檢查。
 
 若練習結果與預期不同，可以直接把名稱、程式碼與實際輸出貼給教學助理詢問。
 
