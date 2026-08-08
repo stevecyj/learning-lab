@@ -91,9 +91,9 @@ print(type(is_adult))  # <class 'bool'>
 
 ---
 
-## 三、`=` 和 `==` 做的事情不同
+## 三、`=` 和 `==` 的差別
 
-這是初學時最容易寫錯的地方：
+`=` 用於指定，`==` 用於比較：
 
 ```python
 score = 80       # 指定：讓 score 參照 80
@@ -112,7 +112,7 @@ is_full = score == 100  # 比較：score 是否等於 100
 
 ## 四、布林值會成為程式的分岔開關
 
-布林值本身很單純，真正的用途是控制程式接下來要走哪一條路：
+布林值的主要用途，是控制程式接下來要走哪一條路：
 
 ```python
 temperature = 31
@@ -142,7 +142,7 @@ age = 20
 print(18 <= age < 65)  # True
 ```
 
-它表達的是「`age` 至少 18，而且小於 65」。這通常比下面的重複寫法更自然：
+它表達「`age` 至少 18，而且小於 65」。連鎖比較可以避免重複寫出 `age`：
 
 ```python
 print(age >= 18 and age < 65)  # True
@@ -175,8 +175,6 @@ print(bool([0]))     # True
 
 ### 字串內容不是布林值
 
-這個例子很容易猜錯：
-
 ```python
 print(bool("False"))  # True
 ```
@@ -194,11 +192,11 @@ print(type("False"))  # <class 'str'>
 
 ---
 
-## 六、Python 專家會在乎的內容
+## 六、使用布林值時的重點
 
 1. **大小寫是語法的一部分。** Python 寫 `True`、`False`，不是 `true`、`false`。
 2. **比較的是值時使用 `==`，不要拿 `is` 代替。** `is` 判斷兩個名稱是否參照同一個物件，語意不同。
-3. **布林名稱應像一個可以回答的是非題。** `is_valid`、`has_permission`、`can_save` 通常比 `flag`、`data` 更清楚。
+3. **布林名稱應能表達是非條件。** `is_valid`、`has_permission`、`can_save` 通常比 `flag`、`data` 更清楚。
 4. **不要多寫 `== True`。** `if is_valid:` 通常比 `if is_valid == True:` 直接；判斷相反情況可寫 `if not is_valid:`。
 5. **`bool` 是 `int` 的子型別。** 因此 `True == 1`、`False == 0` 與 `isinstance(True, int)` 都是 `True`：
 
@@ -211,14 +209,14 @@ print(type("False"))  # <class 'str'>
 
    這是 Python 的相容性設計，不代表程式應把「是否成功」當成一般數量來運算。若要計數，最好明確表達意圖。
 6. **真假性不等於型別是 `bool`。** `if [1]:` 會進入分支，但 `[1]` 仍然是 `list`，不是 `bool`。
-7. **「比較一定回傳 `bool`」是適合目前範例的簡化。** 一般內建數值比較會得到 `True` 或 `False`；Python 的自訂型別則能改寫比較行為，某些第三方資料型別也可能回傳其他結果物件。
+7. **本節把比較結果簡化為 `bool`。** 一般內建數值比較會得到 `True` 或 `False`；Python 的自訂型別則能改寫比較行為，某些第三方資料型別也可能回傳其他結果物件。
 8. **浮點數比較仍要留意近似誤差。** `0.1 + 0.2 == 0.3` 是 `False`；一般計算結果可用 `math.isclose()` 判斷是否足夠接近。
 
 參考：[PEP 8：Programming Recommendations](https://peps.python.org/pep-0008/#programming-recommendations)
 
 ---
 
-## 七、我能採取的下一個步驟
+## 七、立即練習
 
 在 Notebook 或 Python 檔案中貼上以下程式，但先不要執行。先寫下每一項的預測值與型別：
 
@@ -245,7 +243,7 @@ for value in expressions:
 4. **應用：** 寫一個 `score` 變數，再建立 `is_passing = score >= 60`。
 5. **分岔：** 用 `if is_passing:` 分別印出「及格」或「未及格」。
 
-這個練習把布林值從單純輸出，接到之後真正會使用的條件判斷。
+完成後，再確認比較結果如何交給 `if` 作為條件。
 
 ---
 
@@ -328,4 +326,4 @@ print(type(5 < 3))   # <class 'bool'>
 - [Python 官方文件：Comparisons](https://docs.python.org/3/reference/expressions.html#comparisons)
 - [PEP 8：Programming Recommendations](https://peps.python.org/pep-0008/#programming-recommendations)
 
-若預測和實際輸出不同，請保留兩者並說明你原本的判斷；這個差異就是下一次複習最值得處理的地方。
+若預測和實際輸出不同，請保留兩者，寫下原本的判斷，並根據差異找出需要重新理解的觀念。
