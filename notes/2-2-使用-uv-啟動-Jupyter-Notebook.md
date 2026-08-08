@@ -413,6 +413,16 @@ python-course/
 
 如果無法用自己的話回答，回到對應段落再操作一次，直到不看筆記也能說明原因。
 
+<details>
+<summary>參考答案</summary>
+
+1. 瀏覽器只是 Jupyter 的操作介面；真正執行程式的是 kernel。即使介面成功開啟，kernel 仍可能連到其他專案或系統的 Python，所以還要用 `sys.executable` 確認實際的直譯器路徑。
+2. `uv add notebook` 會把 Notebook 記錄為專案的固定依賴，並更新 `pyproject.toml`、`uv.lock` 與專案環境；`uv run --with jupyter jupyter lab` 則是臨時提供 Jupyter 來執行專案，不一定會把 Jupyter 寫入專案依賴。
+3. Restart Kernel 會清除記憶體中殘留的舊變數與隱藏狀態；Run All Cells 再依畫面順序執行所有儲存格。這能驗證 Notebook 不依賴過去的亂序執行，其他人也能從乾淨狀態重現結果。
+4. 在 Notebook 內執行 `%pip install ...` 可能只改變當下 kernel 的環境，不會完整記錄到 `pyproject.toml` 與 `uv.lock`。其他人或未來的自己重建專案時，就可能缺少必要套件；課程中應優先在終端機使用 `uv add <套件名稱>`。
+
+</details>
+
 ---
 
 ## 八、重點流程
