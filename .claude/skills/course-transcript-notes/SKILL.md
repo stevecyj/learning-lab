@@ -1,0 +1,1 @@
+../../../skills/course-transcript-notes/SKILL.md

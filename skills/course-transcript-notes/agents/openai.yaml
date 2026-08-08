@@ -1,0 +1,4 @@
+interface:
+  display_name: "課程字幕整理筆記"
+  short_description: "依 Teach → shuorenhua → no-ai-slop 整理自然課程筆記"
+  default_prompt: "Use $course-transcript-notes to turn this course transcript into natural, source-faithful Markdown notes."
