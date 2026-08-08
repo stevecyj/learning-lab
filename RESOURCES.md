@@ -6,6 +6,10 @@
   `input()`、`print()`、`int()` 與 `float()` 等內建工具的權威說明；用於查證輸入、輸出與型別轉換行為。
 - [Python 3.11 官方文件：Expressions](https://docs.python.org/3.11/reference/expressions.html)
   Python 運算式、算術運算與優先順序的正式定義；用於核對公式如何被直譯器解析。
+- [Python 官方文件：Simple Statements](https://docs.python.org/3/reference/simple_stmts.html)
+  普通指定與擴增指定的正式語意；用於核對 `x += y` 與 `x = x + y` 的差異。
+- [Python 官方文件：`operator`](https://docs.python.org/3/library/operator.html)
+  Python 內建運算與對應函式的總覽；用於查找算術、比較、成員與同一性運算。
 - [Python 3.11 官方文件：`math`](https://docs.python.org/3.11/library/math.html)
   標準數學函式與 `math.pi` 等常數；用於一般浮點數數學計算。
 - [Python 官方教學：Errors and Exceptions](https://docs.python.org/3.11/tutorial/errors.html)
