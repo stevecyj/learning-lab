@@ -38,7 +38,7 @@ Anaconda Navigator 只是完成這些工作的圖形介面。使用 uv 時，不
 | New → Python 3 | 建立使用 Python kernel 的 Notebook |
 | Untitled | 尚未命名的 `.ipynb` 檔案 |
 
-這一節的重點不是記住按鈕位置，而是知道「哪個環境正在執行程式碼」。
+這一節的重點是知道「哪個環境正在執行程式碼」，而不是記住按鈕位置。
 
 ---
 
@@ -119,7 +119,7 @@ uv add jupyterlab
 uv run jupyter lab
 ```
 
-不要只把啟動指令改成 `jupyter lab`；如果專案沒有安裝 `jupyterlab`，該指令便不存在。
+不要只把啟動指令改成 `jupyter lab`；如果專案沒有安裝 `jupyterlab`，就無法使用該指令。
 
 ### 第四步：建立 Notebook
 
@@ -204,9 +204,9 @@ uv run jupyter notebook
 
 ---
 
-## 五、專家會注意的細節
+## 五、容易忽略的細節
 
-### 1. 「介面有打開」不代表環境正確
+### 1. 「介面已開啟」不代表環境正確
 
 Jupyter Notebook 或 JupyterLab 只是前端介面，真正執行程式的是 kernel。
 
@@ -239,7 +239,7 @@ uv add notebook
 uv run --with jupyter jupyter lab
 ```
 
-代表臨時提供 Jupyter 來執行目前專案，不一定把 Jupyter 本身寫成專案依賴。適合不希望應用程式正式依賴包含開發介面的情況。
+代表臨時提供 Jupyter 來執行目前專案，不一定把 Jupyter 本身寫成專案依賴。適合不想把開發介面列為專案固定依賴的情況。
 
 這兩種方式都合理，差別在於 Jupyter 是否屬於「可重建的專案工具」。本課程為了步驟直觀，使用前者。
 
@@ -247,7 +247,7 @@ uv run --with jupyter jupyter lab
 
 `.py` 主要是純文字 Python 程式碼；`.ipynb` 則是 JSON 文件，還會保存：
 
-- Code 與 Markdown 儲存格
+- 程式碼與 Markdown 儲存格
 - 儲存格輸出與圖表
 - 執行次數
 - Notebook 與 kernel metadata
@@ -261,7 +261,7 @@ Jupyter Server 負責載入及儲存 Notebook，kernel 只負責執行傳給它�
 .py：可重用函式、模組、自動化流程與正式應用程式
 ```
 
-當 Notebook 裡的程式碼逐漸穩定且需要重複使用時，專家通常會把核心邏輯移到 `.py` 模組，Notebook 留下分析流程與說明。
+當 Notebook 裡的程式碼逐漸穩定且需要重複使用時，可以把核心邏輯移到 `.py` 模組，Notebook 則保留分析流程與說明。
 
 ### 4. Notebook 的執行順序不一定等於畫面順序
 
@@ -305,7 +305,7 @@ import pandas as pd
 print(pd.__version__)
 ```
 
-這樣直接依賴與精確解析版本都能被版本控制保存。
+這樣，直接依賴會記在 `pyproject.toml`，解析後的精確版本則會寫入 `uv.lock`，兩者都能納入版本控制。
 
 ### 6. 版本控制 Notebook 時要留意輸出與差異
 
@@ -366,9 +366,9 @@ python-course/
 
 1. 用 `sys.executable` 確認 kernel 的 Python 路徑。
 2. 用 `uv add <套件名稱>` 將缺少的套件加入專案。
-3. 必要時重新啟動 kernel，讓新的環境狀態生效。
+3. 必要時重新啟動 kernel，再重新匯入套件。
 
-### 程式重開後突然不能跑
+### 重新開啟 Notebook 後突然不能執行
 
 1. 檢查儲存格是否依賴錯亂的執行順序。
 2. 執行 Restart Kernel and Run All Cells。
@@ -376,7 +376,7 @@ python-course/
 
 ### 瀏覽器關掉了，但終端機仍在執行
 
-這通常不是錯誤。瀏覽器只是介面，Jupyter Server 與 kernel 仍可能存活。回到終端機按 `Control + C` 正常停止。
+這通常不是錯誤。瀏覽器只是介面，Jupyter Server 與 kernel 仍可能繼續執行。回到終端機按 `Control + C` 即可停止。
 
 ---
 
@@ -398,11 +398,11 @@ python-course/
 3. 為什麼 Notebook 提交前要 Restart Kernel and Run All Cells？
 4. 為什麼不建議只在 Notebook 裡臨時安裝套件？
 
-如果無法用自己的話回答，回到對應段落再做一次操作。能辨認文字不等於能在需要時想起來；不看筆記回想，才是在建立長期記憶。
+如果無法用自己的話回答，回到對應段落再操作一次，直到不看筆記也能說明原因。
 
 ---
 
-## 八、這一節真正要記住的流程
+## 八、重點流程
 
 ```text
 進入專案
@@ -423,7 +423,7 @@ uv sync --locked
 uv run jupyter notebook
 ```
 
-核心觀念只有一句話：
+最重要的觀念是：
 
 > Jupyter Notebook 是操作與保存運算過程的介面；真正執行 Python 的，是它連接的 kernel 與背後的專案環境。
 
@@ -436,4 +436,3 @@ uv run jupyter notebook
 - [Jupyter：Architecture](https://docs.jupyter.org/en/latest/projects/architecture/content-architecture.html)
 - [JupyterLab：Get Started](https://jupyterlab.readthedocs.io/en/stable/getting_started/overview.html)
 - [Jupyter Notebook：Notebook Basics](https://jupyter-notebook.readthedocs.io/en/stable/examples/Notebook/Notebook%20Basics.html)
-
