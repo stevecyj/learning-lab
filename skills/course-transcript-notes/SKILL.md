@@ -38,7 +38,9 @@ Build this shape when the transcript supports it:
 ## 一句話回顧
 ```
 
-Adapt headings to the source. Explain the instructor's reasoning, prerequisites, ordered procedure, and worked examples in learner-facing language. Keep the original teaching order when it aids understanding; merge repetitions and obvious spoken detours. Do not invent definitions, commands, examples, links, prerequisites, or conclusions that are absent from the transcript. Mark unclear audio, unfinished demonstrations, or conflicting statements as unresolved instead of guessing.
+Adapt headings to the source. Explain the instructor's reasoning, prerequisites, ordered procedure, and worked examples in learner-facing language. Keep the original teaching order when it aids understanding; merge repetitions and obvious spoken detours. Do not invent definitions, commands, examples, links, prerequisites, or conclusions that are absent from the transcript.
+
+Resolve routine transcript slips before writing the note. When the exercise goal, repeated surrounding explanation, and established technical behavior identify one clear executable interpretation, write that interpretation directly. Do not turn a likely spoken slip into research or verification work for the learner. Mark an ambiguity only when two or more plausible readings remain and choosing between them would materially change the learner's code, result, or next action. Preserve unclear audio and unfinished demonstrations as unresolved when they meet that threshold.
 
 Treat this phase as complete only when every substantive topic, demonstrated action, caveat, and final takeaway in the source is represented or deliberately omitted as repetition.
 
@@ -67,4 +69,4 @@ Read the final note against the source and verify all of the following:
 - Headings and lists help later review without merely copying the subtitle stream.
 - The prose sounds like a capable person explaining the class naturally, without claiming knowledge the transcript did not provide.
 
-Finish only after all three phases have run and this pass finds no unresolved fidelity issue. In the handoff, name the output location or provide the note, state that the three phases completed, and list only material ambiguities left by the source.
+Finish only after all three phases have run and this pass finds no unhandled material ambiguity. In the handoff, name the output location or provide the note, state that the three phases completed, and list only material ambiguities that affect what the learner should do.
