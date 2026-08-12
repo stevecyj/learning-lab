@@ -28,6 +28,18 @@
   uv 專案、依賴與執行環境的官方說明；用於建立可重現的課程環境。
 - [Project Jupyter Documentation](https://docs.jupyter.org/en/latest/)
   Jupyter、Notebook、Server 與 kernel 的官方文件入口；用於 Notebook 操作及執行環境問題。
+- [Python 3.11 官方文件：`sqlite3`](https://docs.python.org/3.11/library/sqlite3.html)
+  Python 連接 SQLite 的標準函式庫說明；用於查證連線、參數綁定、`sqlite3.Row`、交易、`rowcount` 與關閉連線的行為。
+- [Python 3.11 官方文件：`pathlib`](https://docs.python.org/3.11/library/pathlib.html)
+  物件導向路徑操作的官方說明；用於理解 `Path.cwd()`、`is_dir()` 與 `/` 路徑組合運算子。
+- [SQLite 官方文件：CREATE TABLE](https://www.sqlite.org/lang_createtable.html)
+  資料表、`PRIMARY KEY`、`NOT NULL` 與 `UNIQUE` 約束的正式語意。
+- [SQLite 官方文件：UPSERT](https://www.sqlite.org/lang_upsert.html)
+  `INSERT ... ON CONFLICT ... DO NOTHING` 的正式語法；用於建立可重複執行且不覆寫既有資料的 seed 流程。
+- [SQLite 官方文件：UPDATE](https://www.sqlite.org/lang_update.html)
+  `UPDATE`、`SET` 與 `WHERE` 的正式語意；用於理解條件式更新及零筆更新結果。
+- [SQLite 官方文件：Transactions](https://www.sqlite.org/lang_transaction.html)
+  SQLite 讀寫交易、提交、回復與同時寫入限制的正式說明。
 
 ## Wisdom (Communities)
 
