@@ -1,0 +1,4 @@
+interface:
+  display_name: "ASD-STE100 英文簡化"
+  short_description: "將模糊複雜的英文改寫為 ASD-STE100 受限英文規範"
+  default_prompt: "Use $asd-ste100 to rewrite ambiguous English into ASD-STE100 style."

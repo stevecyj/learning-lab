@@ -1,0 +1,4 @@
+interface:
+  display_name: "去 AI 模板味 (No AI Slop)"
+  short_description: "消除文章中的 AI 套路與虛浮語句，保留作者真實聲音"
+  default_prompt: "Use $no-ai-slop to edit this draft into sharper, more human writing while preserving the writer's voice."

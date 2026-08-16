@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Commit 草稿"
+  short_description: "根據目前 Git 變更產出 commit message 草稿預覽"
+  default_prompt: "Use $git-commit-draft to generate draft commit messages for the current changes without committing."

@@ -35,7 +35,7 @@ Build this shape when the transcript supports it:
 
 ## 常見誤解／注意事項
 
-## 一句話回顧
+## 重點速記
 ```
 
 Adapt headings to the source. Explain the instructor's reasoning, prerequisites, ordered procedure, and worked examples in learner-facing language. Keep the original teaching order when it aids understanding; merge repetitions and obvious spoken detours. Do not invent definitions, commands, examples, links, prerequisites, or conclusions that are absent from the transcript.

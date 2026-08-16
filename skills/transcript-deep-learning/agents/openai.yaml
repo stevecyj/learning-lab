@@ -1,0 +1,4 @@
+interface:
+  display_name: "逐字稿深度學習"
+  short_description: "將程式課程逐字稿轉化為概念優先的深度學習指南"
+  default_prompt: "Use $transcript-deep-learning to analyze this programming course transcript into a concept-first learning guide."

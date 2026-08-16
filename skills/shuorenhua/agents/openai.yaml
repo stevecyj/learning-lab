@@ -1,0 +1,4 @@
+interface:
+  display_name: "說人話"
+  short_description: "檢查與清理文本中的 AI 套路，還原自然、具體的人類表達"
+  default_prompt: "Use $shuorenhua to check and clean AI patterns in this text while preserving technical facts and terms."

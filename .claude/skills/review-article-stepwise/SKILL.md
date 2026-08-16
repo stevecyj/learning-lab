@@ -1,1 +1,0 @@
-../../../skills/review-article-stepwise/SKILL.md
