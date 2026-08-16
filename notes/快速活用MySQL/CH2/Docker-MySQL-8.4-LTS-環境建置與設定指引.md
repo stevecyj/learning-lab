@@ -191,16 +191,71 @@ SELECT * FROM users;
 
 ---
 
-## GUI 連線設定
+## GUI 連線：使用 JetBrains DataGrip
 
-DataGrip、DBeaver、MySQL Workbench 連線參數：
+如果你使用 JetBrains DataGrip（或 IntelliJ IDEA / WebStorm / PyCharm 內建的 Database 工具），可直接透過本機 Port 3306 連線至 Docker 中的 MySQL 8.4 LTS。
 
-- **連線類型**：MySQL
-- **Host**：`localhost` 或 `127.0.0.1`
-- **Port**：`3306`
-- **Database**：`practice`
-- **User**：`steve`（或管理者 `root`）
-- **Password**：`password`（或 root 密碼 `root`）
+### 1. 新增 Data Source
+
+1. 開啟 DataGrip，在左側 **Database Explorer** 面板（快速鍵 `Cmd + 1`）點擊左上角的 **`+`**。
+2. 選擇 **Data Source** -> **MySQL**。
+3. 若連線視窗下方出現 `Download missing driver files` 提示，點擊 **Download**，DataGrip 會自動下載官方最新相容的 MySQL JDBC Driver。
+
+### 2. 設定連線參數
+
+在 **General** 分頁填入以下資訊（對應 `.env` 與 `compose.yaml` 設定）：
+
+| 欄位名稱 | 設定值 | 說明 |
+| :--- | :--- | :--- |
+| **Name** | `Docker MySQL 8.4 (practice)` | 連線自訂名稱，方便在專案清單辨識 |
+| **Host** | `localhost`（或 `127.0.0.1`） | Docker 映射至 Mac 本機的連線位址 |
+| **Port** | `3306` | Mac 本機映射的通訊埠 |
+| **Authentication** | `User & Password` | 預設帳號密碼驗證方式 |
+| **User** | `steve`（或最高管理者 `root`） | 日常開發帳號或 root 帳號 |
+| **Password** | `password`（或 root 密碼 `root`） | 對應 `.env` 中的密碼 |
+| **Database** | `practice` | 預設連入的資料庫名稱 |
+
+### 3. 設定 Schemas 顯示範圍（重要步驟）
+
+DataGrip 預設可能只會載入連線時指定的預設 Database。為了在左側導覽樹完整查看所有資料庫：
+
+1. 切換至 **Schemas** 分頁。
+2. 勾選 **`practice`** 資料庫（或直接勾選 **All schemas**）。
+3. 點擊右下角 **Apply**。
+
+### 4. 測試連線與儲存
+
+1. 點擊視窗左下角的 **Test Connection**。
+2. 出現綠色勾勾與 `Succeeded`，並顯示 MySQL 8.4 LTS 版本資訊，代表連線成功。
+3. 點擊 **OK** 關閉視窗，左側 Database Explorer 即可看到資料庫樹狀結構。
+
+---
+
+## DataGrip 常用開發工作流與實用技巧
+
+### 1. 開啟 Query Console 與執行 SQL
+
+- **開啟 Console**：在 Database Explorer 的資料庫節點上按 `F4`，或右鍵點選 **New** -> **Query Console**。
+- **執行當前語句**：將游標停留在要執行的 SQL 語句任一處，按下 **`Cmd + Enter`**（macOS）或 **`Ctrl + Enter`**（Windows/Linux）。DataGrip 會自動識別游標所在的整條 SQL 並執行，**不需要先手動反白整段語法**。
+- **執行選取區塊**：若手動反白多行 SQL 再按 `Cmd + Enter`，則只會執行反白的語法。
+
+### 2. 資料表格（Result Grid）即時編輯與提交
+
+- **即時編輯**：在查詢結果表格中直接雙擊欄位即可修改數值，新增列點擊上方 **`+`**，刪除列點擊 **`-`**。
+- **提交變更（Submit / Rollback）**：
+  - DataGrip 支援交易模式切換（右上角 **Tx: Auto** / **Manual**）。
+  - 當有儲存格修改時，點擊表格上方的 **Submit** 按鈕（或按 `Cmd + Enter`）才會將變更正式寫入 MySQL；若改錯可點擊 **Revert** 取消修改。
+- **多格式資料匯出（Data Extractor）**：
+  - 結果表格右上角下拉選單支援一鍵匯出為 **JSON**、**CSV**、**TSV**、**Markdown Table** 或 **SQL INSERT statements**。
+  - 在前端開發需要快速產生 Mock 資料或 API payload 時非常方便。
+
+### 3. 資料表結構管理與 DDL 預覽
+
+- **檢視 Table 結構**：選取資料表按下 **`Cmd + B`**（Go to DDL），可直接查看該資料表的完整 `CREATE TABLE` DDL 定義。
+- **視覺化資料表編輯（Modify Table）**：
+  - 在資料表上點擊右鍵 -> **Modify Table...**。
+  - 可透過圖形介面增刪欄位、調整型別、設定主鍵（PK）、外鍵（FK）或索引（Index）。
+  - 視窗下方會即時產生對應的 `ALTER TABLE` SQL 語句，確認無誤後點擊 **Execute** 套用。
 
 ---
 
