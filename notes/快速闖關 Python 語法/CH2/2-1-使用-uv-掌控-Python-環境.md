@@ -433,7 +433,7 @@ uv tree
 本專案已將 JupyterLab 加入依賴，進入專案目錄後可直接啟動：
 
 ```sh
-cd python-course
+cd learning-lab
 uv run jupyter lab
 ```
 
@@ -471,10 +471,10 @@ print(sys.version)
 `sys.executable` 顯示 Notebook kernel 真正用來執行程式碼的直譯器。macOS 上的路徑應指向目前專案，例如：
 
 ```text
-/path/to/python-course/.venv/bin/python3
+/path/to/learning-lab/.venv/bin/python3
 ```
 
-若路徑指向 Anaconda、pyenv 的其他環境或另一個專案，先停止 JupyterLab，回到 `python-course` 目錄後重新執行：
+若路徑指向 Anaconda、pyenv 的其他環境或另一個專案，先停止 JupyterLab，回到 `learning-lab` 目錄後重新執行：
 
 ```sh
 uv run jupyter lab

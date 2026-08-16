@@ -120,7 +120,7 @@ print(sys.version)
 `sys.executable` 應指向本專案，例如：
 
 ```text
-/Volumes/data/Projects-practice/python-course/.venv/bin/python
+/Volumes/data/Projects-practice/tibame/learning-lab/.venv/bin/python
 ```
 
 若顯示 Anaconda、Homebrew、pyenv、系統 Python 或其他專案的路徑，代表選錯 kernel。此時即使已用 uv 安裝套件，Notebook 仍可能出現 `ModuleNotFoundError`。
@@ -181,7 +181,7 @@ Notebook 適合：
 當程式需要重複執行、測試或被後端服務呼叫時，應逐步移到 `.py`：
 
 ```text
-python-course/
+learning-lab/
 ├── notebooks/
 │   └── 01_jupyter_basics.ipynb
 ├── src/
@@ -208,7 +208,7 @@ python-course/
 ### 第一步：從 uv 專案啟動 Jupyter
 
 ```sh
-cd /Volumes/data/Projects-practice/python-course
+cd /Volumes/data/Projects-practice/tibame/learning-lab
 uv sync --locked
 uv run jupyter notebook
 ```
@@ -257,7 +257,7 @@ print(sys.version)
 確認路徑包含：
 
 ```text
-python-course/.venv/
+learning-lab/.venv/
 ```
 
 ### 第四步：觀察跨 Cell 狀態

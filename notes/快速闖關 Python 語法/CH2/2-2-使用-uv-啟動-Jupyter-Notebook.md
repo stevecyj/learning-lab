@@ -81,7 +81,7 @@ Jupyter 官方將 kernel 定義為獨立執行程式碼的程序；Python Notebo
 ### 第一步：進入專案資料夾
 
 ```sh
-cd /Volumes/data/Projects-practice/python-course
+cd /Volumes/data/Projects-practice/tibame/learning-lab
 ```
 
 專案根目錄應包含：
@@ -180,7 +180,7 @@ print(sys.version)
 在 macOS 上，`sys.executable` 預期應指向目前專案，例如：
 
 ```text
-/Volumes/data/Projects-practice/python-course/.venv/bin/python
+/Volumes/data/Projects-practice/tibame/learning-lab/.venv/bin/python
 ```
 
 如果顯示其他專案、Homebrew、pyenv 或系統 Python 的路徑，代表目前選錯 kernel。此時應在 Notebook 的 kernel 選單中改選專案 `.venv` 對應的 Python。
@@ -204,7 +204,7 @@ Control + C
 不必重新安裝 Notebook，只要回到專案再啟動：
 
 ```sh
-cd /Volumes/data/Projects-practice/python-course
+cd /Volumes/data/Projects-practice/tibame/learning-lab
 uv run jupyter notebook
 ```
 
@@ -353,7 +353,7 @@ open("data/example.csv")
 建議結構：
 
 ```text
-python-course/
+learning-lab/
 ├── .python-version
 ├── pyproject.toml
 ├── uv.lock
@@ -441,7 +441,7 @@ python-course/
 目前專案最常用的指令是：
 
 ```sh
-cd /Volumes/data/Projects-practice/python-course
+cd /Volumes/data/Projects-practice/tibame/learning-lab
 uv sync --locked
 uv run jupyter notebook
 ```
