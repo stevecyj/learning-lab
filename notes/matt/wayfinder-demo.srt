@@ -1,0 +1,557 @@
+What's up, pals? How are we doing? I've not got long. I've got about an hour to chat about Wayfinder. I'm uh I'm kind of excited about this one. It's an absolute banger. The tool's really fun.
+
+And I'm just going to jump in straight away, start using it. Wayfinder, for those who don't know, is a Um it's a sort of evolution of the Grill Me skill. And it's a way of figuring out
+
+huge chunks of work all together and all in one piece. And the thing I'm going to start using it for today is building something that I've wanted to build for a while.
+
+I'm going to kick things off by going Wayfinder, and let's do our first dictation here. Going to first make sure I don't have any environment variables exposed. How we doing?
+
+Got here immediately from Turkey. Nice. We're in. We're in. We're in. I don't have long, so I'm just going to go for it.  Now, I would like to extend my existing video
+
+app that we're in right now, the course video manager, to have a TikTok creator. The way this should work is we should use the normal videos, and I think I need like a new style of video player.
+
+Or you're reusing the same logic in the video player, but it should look slightly differently. And I want to have investigate what the TikTok API exposes so that we can potentially
+
+upload from the CVM, and also upload from YouTube, as well. Using it now, you're a bit lost. The idea of Wayfinder is we're going to use it to create a spec that we're then
+
+going to implement. Hopefully, I can reach the spec stage by the end here. I think that's everything I'm going to include for starters. The way this works is it's going to run
+
+a grilling session, and it's going to find the way from where I am now to where we're going. So, it's essentially charting the map. And it's first going to kind of
+
+look through stuff, see what's around, see what's available in the code base, and then it's going to start quizzing me. That's the theory of Wayfinder. So, Wayfinder is all about the pre-spec stage.
+
+Wayfinder infrastructure exists on the GitHub. Let me see how existing maps are structured here. Yep. Hello from Pakistan. Hello from Germany. Hello from Italy. What's up?
+
+I'm going to Belgium this year. Anybody in Belgium? Just for fun, not for work, actually. How to pick up the work in later sessions? Cool. I'll show you that. Let me just check my agents. Uh yep.
+
+Cool, you're good. I'm going to rename this agent. Wayfinder uh TikTok player. I found that Opus 4.8 is perfectly fine for grilling. I don't necessarily need Fable for this bit.
+
+Really like it better than Grill me? Good. That's what I want to hear. Okay. So, it's kicked off an exploration, and now it's going to start charting. Hello from Mexico. Apologies for the other night.
+
+So, you've described a fairly big idea, TikTok creator inside CVM that reuses your normal videos as a new but similar video player style differently. Cuz this is a Wayfinder effort, the map's job is
+
+to find a way, resolve the open decisions, not to build the thing. Correct. So, the destination is most likely a locked set of decisions a spec that I can hand over to an implement
+
+implementation agent not working upload code. So it's asking what the destination should be. You're absolutely right. We want a spec to be created. We don't want to start implementing.
+
+I might keep this video up. I'm not sure. Depends how it goes. Mostly the way I do it is I just stream and then I just make the video unlisted so that people can who tune in can find it again but
+
+I like to keep my main thread pretty tight. Okay. What is a TikTok video relative to your existing videos? You said that we should use the normal videos. Well, inside our schema so schema.ts
+
+there is a concept of videos here. So it's a videos table. It's got ID, lesson ID, picture ID. There's already a concept I think that is good enough for this. So what is a TikTok video? TikTok video
+
+shorts are vertical portrait clips. Use the normal videos can mean quite a few things. Is a new thing you author from a normal video? Pick a video. Yeah, it's got this wrong this
+
+recommendation. I don't want to do that. So I think we should make it an existing video using the same videos table. It's just a different attribute on it. It's
+
+probably got different ways that we then post it different ways that we then turn it into a real thing. Wayfinder chunks a broad requirement into more focused smaller grilling sessions.
+
+That's exactly right. It tries to figure out the frontier of decisions and then chance your way through them. You'll see. Using an omp nice. How does a video become a TikTok video?
+
+What's the different attribute? I think we need an explicit attribute here because it needs to show up in tables properly. So, it's going to need to I'm not sure how we're going to put this
+
+in the UI, actually. That's a good question. Not sure whether this is going to be a new um top-level list of videos. That probably does make sense. I don't know whether they relate to pitches as well.
+
+Cuz potentially you could make a  TikTok video from a pitch. I don't quite understand how like cuz TikTok videos are kind of their own thing. I They should be extremely low
+
+friction to create. I should just be able to jump in and do it. You see how vague I'm being? I'm not I'm not being particularly concrete here. I'm just kind of talking as if I were
+
+talking in a meeting, really. I do use Sandcastle for the and I've changed how the research tickets work actually today. So, I'm now using a more sub-agent-based approach for the
+
+research tickets cuz the research is quite simple. Wayfinder is like a sort of grill me on steroids, basically. Ground the pitch question in your domain before I ask about it. Hmm.
+
+How can you learn to read code? Uh use the teach skill. Use the teach skill. Teach skill's a great for that. Teach skill is in my skills repo. Do TikTok videos relate to pitches or do
+
+they bypass that machinery entirely? So, I have a concept of a pitch, which is the sort of packaging for a video, the plan for the video, and then I turn that pitch into a video once I'm ready. So, I
+
+have a list of pitches for videos I've not created yet. I think that this is probably a standalone video.  Yeah.  I think there should be no pitch relationship. I don't really understand yet the
+
+relationship between pitches and how I want to think of the flow for creating a TikTok video, how I like there probably needs to be some set of ideas for how I would create a TikTok
+
+video, but I don't yet have that concept in mind. And I feel like pitches are for longer form videos, things that are more expensive to create, things that need more planning.
+
+A TikTok video should just literally be okay, I've got an idea, let's go. So, low friction. No required pitch link, I think is correct. Uzbekistan, awesome. How many tokens it usually takes for a
+
+daily task? I don't know. I usually try to keep things below the the smart zone, so 150k. What skill in my point of view is the best for finding bugs and your issues, back and front end included? You
+
+you just need a code review skill, basically. Um so, mine is fine. There are a bunch of others. Essentially, just a review stage where you have the spec and then you
+
+do the review and then you compare it against the spec is a great way of catching bugs. Just literally a second pass is really good. What platforms? I think TikTok plus YouTube shorts is good. But
+
+I mean, I don't have any following on Instagram and so that would be a little bit pointless, but I would be interested in um doing some research on what is possible on those platforms
+
+and how easy it would be to integrate. Because once we have it in a database, it's extremely cheap to just start smashing it out to loads of different platforms. I just remembered something.
+
+Yeah, this is whisper flow. The other thing we need to bear in mind here is that there is a repo on this computer called repos ts total typescript monorepo. This is from a previous iteration of
+
+this workflow where I used a CLI to just take the most recently updated OBS video and add subtitles to it. So, there is a remotion repo inside here, which I think we might need to extract out into its
+
+own repository. I'm not sure. I definitely there's definitely too much in the total typescript monorepo, which is now deprecated. I don't really want to keep it around.
+
+Yeah, I'm not quite sure what to do there. Notice how much fog there is in this um like we don't know the way yet. This is what wayfinder is doing. It's helping us find the way.
+
+To tickets definitely still has a place. Um wayfinder creates the spec. Let me pull this up. So, let me look which diagram do we need here? Uh to Yeah, here we go. To spec. So, where is it? This one.
+
+Yep. This is essentially the new flow. You either do grow with docs, if that's what you're more comfortable with, or you can do wayfinder, then you do to spec to turn it into a specification,
+
+because probably if you're using wayfinder, it's going to be more than one um coding session to um get there. Then you do two tickets, then implements, then code review. So, same flow.
+
+This is on Opus 4.8, clawed code, medium effort. Okay, here we go. I want to know what's cheap to fan out to. That's right. Prior art plus a Remotion project turn into a probably rendering a vertical
+
+video with burned-in captions. Yes. The defining feature of TikTok. What does turning into a real thing mean? Mhm. Yes, that's correct. It's definitely a core in-scope pillar
+
+of this spec and there's already prior art in the total TypeScript monorepo for handling it. You found they needed a bit of tuning? Okay. I'd love to know what tuning you did.
+
+How would you prevent the model from drifting away from the task even with your guardrails with the skills? Also, by using the skills, can you delegate tasks where Opus ping-pong with Sonic? Um
+
+It's two quite different questions there. Um I mean, when I'm in the planning phase, it's my responsibility to keep the model on task. Like, so many people are really like um
+
+passive with the agents when they're in this phase. You need to be on top of them. You need to be driving it. You're the lead. They're the junior. So, okay, it's created a it's proposing
+
+a map for me. So, it says the destination a decision complete spec for a TikTok creator in the course video manager, which is my repo. Uh Uh, subtitle vertical render pipeline
+
+using the Remotion prior art using posting to TikTok and YouTube Shorts. Execution is out of scope. Yes, so we're not going to create this yet, we're just going to create the spec. So,
+
+uh, does this destination 9-ticket breakdown match your intent? I'm not going to read these yet, I'm just going to say, "Yeah, looks good, bro." So, I'm going to get it now to create
+
+its GitHub issues. Usually, I might do a little pass at this, but we're on live stream, so I'm not going to. Please use GPT 5.6. Opus has less intelligence. Ah. Uh, let's quickly look at something.
+
+This is, um, how I see the world in terms of, um, what an agent is. You have your model, which is in the middle here, then the harness around your model, so the model is Opus, uh, GPT 5.6.
+
+Then the harness is Claude Code, Claude AI, my Codex, ChatGPT. All of that is what we call the agent. Then, wrapping that, the thing that the agent operates inside, that is the
+
+environment. That might be the file system, might be the code base, might be something else. Everyone talks about swapping out the model, improve the model, make the model better.
+
+It's just a small part of the picture. You can make the model better, sure, but you can also, and this is free, you can make the harness better, or you can try to make the environment in which the
+
+agent is acting better. So, all of this kind of, s- like, just swap out the model and it'll be great. Honestly, there's so much more you can get from focusing on the environment and
+
+the harness. I would say, "50/50." Okay, it's creating the Wayfinder map, cool. So, at this point, it's going to create some real GitHub issues. Real GitHub issues. Let me take a look at them.
+
+So, this is a real GitHub issue. I'll post this in the chat. You can go and take a look at this. This is a public repo. And you notice that the map itself is pretty
+
+terse here. A lot of what it does is it delegates out to subtasks and these decision tickets that's going to be creating now. So, it's now creating the nine tickets.
+
+According to your drawing, the model is the core. Yes, but the engine is only a part of the car. Why does it seem that my limbs take me for a walk around the houses? No idea.
+
+Just stay in your seat, I would say. Got someone I need to get rid of.  Would you use Wayfinder for smaller scope specs? Yeah, what you can do is Wayfinder will um
+
+if it senses that it doesn't need a map, it won't create a map. It will just do the thing in the normal grilling session. So, Wayfinder will sort of just um degrade down to grill dogs instead.
+
+I'm using VS code. Used Wayfinder yesterday, it made the spec. Yeah, it's it's created the map. Um now, what you need to do is go through the tickets. So, if we take a look at the tickets,
+
+uh we can see that it's opened nine uh subtasks or subissues on the GitHub issue. So, you don't have to use GitHub for this, by the way. You can just like um do your thing. Uh and what it's done,
+
+very cool. We can see that it's got some blocking relationships here. So, we've got three open tickets which we can grab. This one is a grilling session. So, this means we need to have
+
+a conversation about something. This one is a prototype. So, this one means we need to actually like have a play and mess around with some code. Then this one here is um another grilling session.
+
+These four look like research tasks. And the way that Wayfinder works now is it's going to actually just start spawning agents to tackle those research tasks now. So, that's handy. So, that means that
+
+those research tasks, those are all just going to be done and reported back. And then there are a couple of blocked ones here which are blocked behind other decisions that are being made. And then
+
+there's some stuff that's not yet specified. So, how do we have the set of ideas backlog for TikToks? How do we do caption styling? How do we Do we tie this to the deliverables calendar? You
+
+get the idea. So, this is the idea now. So, where do we go from here? We've created the map, we've kicked off some research tickets. It's time now to Uh yeah, it's looking good. I'm now
+
+going to spawn some agents to tackle each one of these. So, I'm going to copy the link address to this issue. I'm going to go uh left to open up a new issue. I'm going to say Wayfinder and
+
+I'm going to open that up. And I'm going to rename this to how videos market to TikTok. Short form attribute for TikTok. Uh then I'm going to do the next here. I do want to make this less manual, but
+
+this is the way I'm doing it for now and it seems fine. So, this one is uh portrait creative view. And then this one is TikTok creation flow. Tick Whoopsie. TikTok creation flow.
+
+So now I've got four sessions running at the same time grilling about different things and I'm going to just sort of manage them as we go. So I've already got one from before I went on.
+
+How does this work with non-public repos? It just works. Right, because you've got a GitHub auth token, it's authenticated as you, then you're able to create issues and do the normal thing.
+
+To spec is the new name for 2 PRD. So at this point, I just wait until all of these are just running kind of like figuring things out. And I just wait until one is ready for me. Much more fair? Good.
+
+Much more clear, sorry. Is it good practice to compose a big skill that references other child skills to perform for example, controlled loop workflows? It's tricky. Um I would say um
+
+look at my writing great skills skill. There's got a little bit of advice in there for that. Why don't I use Fable 5? Um because I'm really happy with Opus. Really happy with Opus. It's doing good
+
+for me. How do I have four terminal workers in one terminal window without tapping over? This is a Claude uh code feature. So it allows me to view it from the top level. I've really
+
+really enjoyed using this. It's excellent. I've tried other stuff like Herder, but it's Herder's a little bit buggy. I have some reports that I need to give give to the guy who makes it. Um but
+
+uh I've really enjoyed this. So okay, one is here and it started on a grilling session. What I really like about Claude code is it has this recap feature where it says
+
+charting the TikTok creator wayfinder map, I've claimed I'm grilling short form attribute how video is marked as a TikTok short. What access is this attribute actually on? This ticket
+
+floats kind with values short and lesson, but those two aren't opposites. A standalone pitch video is neither a lesson nor a short, it's a long form landscape video. So, this is a new
+
+should name form factor intent only. This video is a short form vertical thing I'll post TikTok shorts. Stay mhm. I think this is a standalone video. It's just a standalone video with a new
+
+attribute and might need to be filtered and shown differently in that same UI. Let me actually show you the thing that I'm working on so that I can I might just put this in I know we're
+
+we're good. Mhm. So, the thing I'm working on is this. This is my uh basically the thing that I spend all of my time in mhm as a content creator. This is the content creator platform
+
+that I have built for myself. And I think what it's basically asking is should I put this in here in my standalone videos? Probably should. Probably should. Yeah, I think that's good.
+
+So, I go left and now I go and do the other one. So, what's here? YouTube shorts research done. Oh, okay. This is the original mhm original map thread. And we can see here that the uh agents
+
+it kicked off to do the research are already uh already coming back in. That's really nice. So, okay. And now a couple more are starting to come back, too. So, okay. Boolean is short. Hmm.
+
+So, here's the tension. The repo has a stated convention for picking enums over booleans. Pause type, silence length. That's correct. I generally much prefer enums over booleans, especially in
+
+categories where it could expand outwards. So, I think a type makes most sense here. I feel like the type might need a qualifier of some kind, like destination type or I don't know.
+
+But, definitely an enum. So,  And that's I mean, that's my engineering experience coming into play there. I It would be very easy for a junior, someone not very familiar with coding, to just
+
+say, "Yeah, let's use a boolean here." Um because the boolean is like, "Okay, is it a short or is it not?" But, what happens if we add a third type here? Then, you would need a boolean to
+
+represent, "Okay, it's not a short, it's not a video, it's something else." You've got three booleans there, and 3 * 2 is 6, right? So, you've got six possible states of all of those
+
+different booleans. Whereas, if you use an enum, it means that you've got literally three possible states cuz that single enumerated value can either be one thing or another thing or another thing.
+
+What is the enum name? I think format makes sense. Yeah, I like format with standard versus short. That's good. Hmm. I tend to find that with code review the harness matters more than the model. Okay.
+
+Now time to dip over to Okay, there's a couple of others that have come back. I'm going to just  uh ignore this one for now. Okie dokie. So, recap on this charting
+
+the TikTok creator map by Resolving the ticket for low friction Next action waiting on your answer for whether TikTok creation should be footage first, shell first, or both. Ooh, great question.
+
+What a good question. OBS import appends clips to already existing video. Hmm. Footage come from at the moment of creation. Mhm. Yeah, this looks good. It's basically saying how should you um
+
+kick off this new video? What do you want to see when you do that? Yeah, I think what I want is to press a button and then to start talking. So, however we make that happen, it'd great.
+
+And I would love to then use AI to generate from the transcript the name of the video and any description metadata that needs to come with it. No, I'm not on Twitch.
+
+Yeah, I will hopefully get to do some prototyping. I've got about 45 minutes left, so definitely will reach some prototyping. Um Aha, and in fact, we got a prototype already. So, this was a prototype
+
+ticket. And if we look back in the thread here, we can see we're on only 60k tokens, which is nice, and it's using the prototype skill in my Reaper. I've got a video coming out about this this week.
+
+So, where is this? It is in it's on a work tree. Um Let's see. Give me the exact commands I need to run in order to see this. This is just using Wayfinder, and Wayfinder kind of leads you through this
+
+process. So, let's go back to the main one. Constantly trying to um kill dead time here, basically. So, seating from the existing portrait signal says this Mm. No, I don't think that's right. It says
+
+that there's an existing signal in the code base, but I don't think that's right. I don't want to do a backfill here. I don't want to migrate any existing videos. I just want to
+
+I Let's assume that all videos are landscape for now. TikTok creation flow. Where should the top top level list of TikTok videos live? So, it's recommending a new top level sidebar item.
+
+Uh I actually don't know. And because I don't know, this is essentially a what should it look like question. And so, I'm going to get in there. This is a what should it look like
+
+question, which means that we need to raise the level of fidelity so that I can actually see what this might genuinely look like. This is Opus 4.8 medium. No dead time. No dead time.
+
+Obviously, you can have a cup of tea if you like, but while I'm working, no dead time. Is there any auto derivation of format human uh I think format is purely human set.
+
+So, this makes the migration easy cuz we just default to landscape, I suppose. I don't know, we can run a migration script, I suppose. Because having a default in future is a little bit awkward.
+
+I don't know, I'm up to you on that one. Okay, here we go. So, we just got to CD into this repo and then run this dev server. Where's that dev server? In fact, I know I know what it is.
+
+Run dev route router. And then, we open up this. So, the way this works is I think this is going to be over here. The way prototype works is I can basically um Uh you're not going to work on me?
+
+No, you're working slowly, okay. The way this works is prototype will give you a database URL not set environment variables. Okay, let me just do some environment variable fiddling
+
+until we get this working. Um Global trace, okay. Okay, I think we're good. Now, what prototype does is it helps you raise the fidelity of the discussion that you're having. It allows you,
+
+instead of just talking about text, to actually look and see some um Oh, yeah, nice. Uh Oh, yeah, really nice. I have some proper UI to look at. So, if we look at this here, click over. So, that's A.
+
+And now if we click over to variant B, ooh, I think there might be a bug here. Yeah, I think I need to run NPM install. Oh. Moving non-directory. Yeah, yeah, yeah, yeah, yeah. It's done a sim link, I
+
+think. Done a weird thing. This is uh 20X Max. I have a single 20X Max subscription. Using Wayfinder, good. Good to hear. Uh let's run dev again. This will be another little loading session. And then
+
+it's basically going to give me a few options for different prototypes I can do. So, bang. Let's try number B. Playback only stage. Come on, kid. What are you doing? Updated temp. No, that seems fine.
+
+Come on, kid. Let me see B. Ah, here we go. Studio, right. Split editing surface. Mm, I don't need to trim, though. Portrait first tabbed editing. Where's the tab, then? Mm.
+
+I don't love any of these, actually. Yeah. So, okay. TLDR on Wayfinder is it helps you find your way. It's a update on Grill me that helps essentially instead of having a single
+
+grilling session, it's a orchestrator over grilling sessions. And I'm in a prototyping ticket and I don't like any of these. Uh okay, right. Well, well, I don't like any of them really. Uh
+
+the one I really want to focus on is the studio because I think I want to reuse most of the video creation logic and that UI that I've already got, but I just need a
+
+different view on the right-hand side. So, currently it's totally divorced from anything I've seen before and it's not looking great. I need you to explore the real video editing code so that we maybe
+
+take the reducer that's already there, take the UI parts that are already there. We can maybe even try to componentize some of that stuff a bit better and pull some shared code out into this new view.
+
+Yeah, let's try that. See what it says. Okay, so the original map thread, now all of the research decisions are resolved. Beautiful. So, if we look back at the map,
+
+then we should see yeah, all four of those research tickets are now closed. So, it's now gone and um found the updated API. Yeah, here we go. So, is that all? Let's see up here. Yeah, beautiful.
+
+So, look. Now, all of the research is saved inside these tickets here. So, findings committed. So, all of the stuff and it's actually gone and created a local file on a separate branch. So, created on
+
+this work tree branch. Beautiful. So, that means that this is a really, really rich piece of context because the map here sort of indicates where the decisions are and points towards the research. The
+
+research ticket itself contains a link to the actual thick docs page that was created. One thing is I don't really like the fact that we can't really read these very easily. I suppose
+
+we could if we just asked an agent to find it for us. And it's got essentially a summary here. So, this is progressive disclosure at its best. We're pointing pointing down
+
+the chain until we actually get to the thing that we need. Fully decoupled. Every platform has a usable upload API. Chunk. Hmm, interesting. Okay, so it's pretty cheap actually to post to Twitter.
+
+Infers a short from the file. That's fine. Already short capable with no landscape assumptions. Awesome. So, lots of research done here which is pushing back the fog.
+
+Could you make an updated video how to set up the whole thing you're using there? Just uh follow the install steps in my uh GitHub repo. Okay, so I can close the original map
+
+thread because that is all done. Now, how does format surface in the video lists and tables? So, we're just grilling here. Basically, you know, this is just grilling across
+
+multiple sessions about the same thing. And because they're in parallel, you end up being faster. It is not dependent on GitHub. You can set it up any way you like.
+
+Yeah, I changed the way research worked this morning, so you're probably seeing something different to how uh it works in real life now. So, how does format surface in the list tables of filter
+
+I think both a filter makes sense and a visual marker. I think maybe even tabs might make sense here. I think we might need a prototype to have a look at this. One really cool thing about Wayfinder is
+
+what when you're in a ticket, you can schedule other tickets, right? You can put more tickets onto the map. That's one thing I really annoyed me about grilling is like if I found something
+
+that I knew I couldn't tackle in this session, how would I handle it? I would probably just like hand off to another grilling session and do that in line, but there was no way tracking all of it.
+
+Yeah.  I Yep, sounds good. So, it's it's now telling me that because I've said we need a prototype, it's going to close the decision ticket and write down everything that we found
+
+into that decision ticket and then open up another ticket to do the prototype. So, is this all still working? What is going on in here? What are you guys doing? Let's see.
+
+Why don't you chill out for a minute and let me figure out what's going on. Give me the exact commands I need to run in order to get it working. Or is it the same? Yeah, this is the same one as we had
+
+earlier, right? This is um this is infra behind my course creation, basically. So, this is the app. Um this is the course I'm currently putting together, which is an AI coding crash course.
+
+And it's a video editor, it's a thumbnail creator, it's a writer, it's a pitch storer, it does everything. It's wicked. Okay, there's another workspace. So, I should just be able to just see it,
+
+right? Where did you put it? Uh TikTok's prototype, interesting. Okay. So, you put it on a new route. So, I usually find these prototypes work way better when you're
+
+when it's integrated into the actual code it's going to be genuinely integrating in. Uh, is this in here? Is it canceled? Yes. Let's try that. But, for this one it seems to have just
+
+stuck it on a new route, which is okay. Page you're looking for doesn't exist or has moved. TikTok's prototype. Uh, okay. Okay, I'm in a different zone here. So, let's go npm i.
+
+Um, the painful part about this is still the work trees. Like just handling all of the state between the different work trees. Um, making sure they've got uh dependencies installed.
+
+Uh, one thing I really want to do is put a lot of this on a remote server or use um sandboxes for this because it's just brutal the way it's working right now. Cuz I need to go up, I need to copy the
+
+uh environment. What's Oh, no, it's done a sim link. Okay.  NPM run dev. Address in use. Okay. Okay. So, I think we're there. It's a lot of guff, basically, when you're working with work trees.
+
+Whereas having them on separate sort of virtual machines or machines in the cloud would be really nice. Wow, look at this. That's a fun prototype. Press to talk. Hit record and start talking. So, if I
+
+click I mean, wow. So, the theory here is that I would I mean, that's the very friendly. It doesn't really fit the rest of the UI that's going on here. Is there some kind of bug that's happening? No.
+
+Let me see variant B, please. Cool. Okay. This is nice, actually. I like this. It's friendly. Press a new TikTok. A grid. Yeah, I mean, that's This is actually nice. I actually like this.
+
+I actually really like this. I don't know which one Which one do you guys prefer? I'm I'm between A or B. But this is like delightful, you know? This is stuff that I would not have put
+
+time into or invested in. But it's just nice to get a kind of like, "Oh." Yeah, I like number two, I think. B. Okay, really cool. Right, looks great. Uh B is the one for me.
+
+Don't think I've got any feedback on that, amazingly. Um actually, no, I do a little. So, this now, when you're in a prototyping phase with Wayfinder, you really need to hone in on detail. So,
+
+this is the moment that you really start hammering it. Um So, the new TikTok button in the top right is not needed since we've already got a duplicate on the page.
+
+There is some UI there that I'm not sure that we can represent in database state. So, the rendered versus posted. Currently, we store that stuff in local storage and so
+
+I do like that UI, but I wonder whether we need a grilling session to figure out how that hits the schema and how that fits with what we have already. I like it though. I mean it's I mean
+
+it's nice. It's done a good job. Okay. So, nearly here. Okay, decision fully grilled resolution comment post on the ticket. Good. Okay, so we've closed another ticket in the
+
+decision map or in the map. Is it closed? No. Okay. Here's what remains. Needs input, may proceed. Yes, crack on. Okay, so it just needed input from me to ask whether it was okay to proceed. Fair
+
+enough. Portrait view. What's this now? Fully drop. And tab contain no context read, so that's a clean seam. Lift as is. Open taste question, what actually lives in that new panel?
+
+Okay, so it's asking me about This is the one where we're looking at the editing experience, not the sort of top level list experience. And what actually lives in that new panel?
+
+TikTok specific concerns look like caption, vertical render trigger, posted TikTok shorts. So, ah, yeah. That's interesting. Cuz the previous TikTok implementation I
+
+had rendered its own captions, but we're now actually rendering captions ourselves, but slightly lossier. New view, a third tab inside editor side panel, a separate right column.
+
+I think this would be a separate right column that replaces the player heavy right side. I'm really struggling to picture what you're saying from your words, and so I
+
+just need to see some more prototypes, I think. I do not use Caveman. No, I tried it out in my repo, um but I didn't end up using it. Why do I only rely on skills? Couldn't I
+
+create specific agents for different tasks? Um agents are just like new context window plus skill. That's what they are. So, there's no reason to use agents when you can just manage that
+
+yourself with skills. I'm using Claude agents here, so I just click press left, and it goes to the Claude agent view. Looks good. Okay, so now 1266 is closed, is it? Yes, it is. Very cool. And that
+
+has opened up a new ticket. So, I'm going to grab this. I'm going to close that with control X. I'll go wayfinder and let's go for that one. And this is how the CVM produces the submitted
+
+vertical. Okay. So, this is the render caption pipeline. So, we have progressed down uh on the way, right? We are finding our way. So, this one is now header button removed.
+
+Dedicated dedicated TikToks. Um Okay, so it's This is asking about the how we create them. Variant B's card contents. Yeah, let's look back at it. Posted TikTok and shorts.
+
+It's okay, I think. I think it's quite nice. Yeah, right. It's asking whether it should create a TikToks thing here. I think that probably is cleanest because this is pretty sparse right now.
+
+It can take another video. Yeah, let's go dedicated TikToks sidebar item. Agree with your other suggestions. Okay. So, we're heading towards the end of that ticket. That's good.
+
+Yeah, wayfinder is connected to the main modeling. Used it wrong to make one of your projects instead of using the wayfinder. You should always use the skill the issue says to. Okay, yeah.
+
+Whenever you pick up a decision ticket, you've got to use Wayfinder. Okie dokie, where does the render pipeline live? So, this is the decision that we've got to make about where to put that. Mhm.
+
+Yeah. So, it's basically asking, I've got this separate thing in a separate repo and it's asking, should we pull it into this repo? There's no reason to, I don't think, because the thing that's in its
+
+separate repo works right now as a bridge. So, I think we should probably defer this work to pull it into this repo. The reason being that we're not really set up to be a mono
+
+repo in this repo anyway. And that thing has some pretty old dependencies. So, I kind of just want to keep it at arm's length for now. With the idea that we might pull it in at some point.
+
+I feel like we might be able to not have to do the TT shell out. I think we can just Is there an option where we can just invoke it? I don't know. I feel like we might be able to pull in
+
+parts of the system without needing to pull in the entire remotion setup. Yeah. Whisper flow. Okay, here we go. Our tracker rights got blocked by the auto approval. That's another thing
+
+about not being on a virtual machine is that I've got to use auto mode. Uh auto mode is really annoying cuz it's does, you know, it does things like this where the tracker rights got blocked by
+
+the auto approval classifier. So, yes, go ahead. Let's see if auto tracker does it now. Love the new way finder, great. Still a 50% improvement, good. Okay, now now now now let's check this out.
+
+Uh and what's the URL? This is the new studio version, so another prototype. Okay. Yeah, I love I freaking love opening a prototype. Just love it.  Hey, that's not bad.
+
+That's not bad. That is what my editor looks like. Mhm. It's not bad. One thing I don't love is these tall timeline items over on the left-hand side. We don't need the captions down the bottom.
+
+Oh, but this is just This is just A. Let's see what B is. B is tabbed. Where's the tabs? Oh, I see. Render post node, I don't like that. Video forward overlay tab to edit captions.
+
+Woah, look at that. I can literally click on the captions to edit them. That's pretty wild. I don't I mean, I don't need that cuz I can usually just right click on these to edit them. Um okay.
+
+So, what do I like here? Okay, I've got an idea. So, I think I like the full screen-ish version of the player on the right. I think the stuff on the left is great. Don't need to touch it.
+
+Um what I want to see though is I want an action menu for the actions that are in the B section. So, the current video editor has an action menu and I would like to copy that as much as possible.
+
+There is some stuff I don't need in there, but having an explorer in there to see what's in there. Prototyping is always super heavy on context, always burns a ton of context
+
+because it's having to read a bunch of files, write a bunch of files, and you're often needing to edit stuff. So, I'm used to things going to like 200k. And actually,
+
+also another thing about this is I don't need caption editing at all. I don't need it because the uh Remotion workflow that we're uh pushing out to, that does its own
+
+captioning anyway. So, we just don't need it. Okie doke. How you attached are you to the exact Remotion capture look? Oh, here we go. Okay. What's it doing here? I'm the styled. Yeah.
+
+Whisper transcription's already. Oh, here we go. Here we go. So, we're trying to work out how much we should figure out here. Hmm. Yeah. I am actually very attached to the exact
+
+Remotion caption look. It took a long time to get it right, and I think it's really pretty. So, yeah, I don't want to get rid of it. So much of like misalignment from AI is
+
+AI not asking these questions, not understanding what your values are, what you prioritize over other stuff. I do not use OpenSpec. Okay, we've got a closed ticket, I
+
+think. That's good. Let's have a look at the map. We're getting through it. We are six out of nine now, and we've got Uh that's been grabbed. This one needs to be grabbed now.
+
+So, we can delete this one. We can say wayfinder that one, and this is posting life cycle. Still can't wrap your head around how to have multiple grilling sessions in
+
+parallel when the decisions in one might affect decisions in the other one. Um in general, I haven't found that to be a problem. Um it can happen, and when it does
+
+happen, you just sort of say, "Okay." You point the sessions at each other, uh figure out which one needs to be done first, then you just finish that grilling session in there, hand off one
+
+to the other. You know, you just do a bit of inter-agent communication. The way it generally works is that it generally gets the blocking relationships really nicely. Okay, here we go.
+
+So, CVM is unambiguously a local desktop tool, streamed at forwarder, OBS, blah blah blah blah blah. Uh arms length shape crystallizes. Here's my recommended answers to the whole ticket. Here we go.
+
+Extract just the My Comp 3 motion project into its clean standalone repo. Yes. CVM invokes it via a local shell out. Yes. Good. CVM owns the surrounding glue natively. Transcribe audio file.
+
+Yeah, that seems fine. Defer the eventual pull into CVM at later optional step. Yes. Yes. Yes. That looks freaking great. I love it. Yep. The floating bar that stitches between
+
+our mock-ups, that's just the prototype skill. Okay. Cool. So, that's doing a little bit of prototyping. Cool. And you get a little bit of a break sometimes just where all where you're at
+
+maximum agent working and you just get to have a cup of tea. This is Claude agents. It's really good.  How do I do UI testing? I mostly like this prototyping phase produces really high-quality assets.
+
+Um, I haven't done a ton of browser testing. I mean, I have done in my career, but I'm not doing it now. I probably should. I just um this is a really complicated setup locally and so I don't have the
+
+energy to  want to give it its entire set of um microservices that make that work, basically. Okay. So, what's conversion out? Okay, so let's have a look at the prototype.
+
+Yes, that's nice. That's nice. Rename short. Oh, that's really nice. And then press post. God, that's gorgeous. So, what happens when you press post? Nothing so far. God, I do love this.
+
+That's really good. The video is slightly too long. Um vertically, so it's cut off at the bottom. So, it needs some CSS adjustment there. I'm also intrigued by what the post button should look like
+
+or whether it should open a modal and what should be in that modal, but I think that's a grilling ticket not a design ticket. And we're already pretty deep in our
+
+context window, so let's not worry about that yet. So, I think Oh. Oh, I didn't even realize there were options. Uh Post actions above. Ooh, on the video. Look at that. On the video is quite nice.
+
+I know, I think above is just great. Yeah. A is the one I'm picking. Doing it above the video looks really nice. Um I'm just using Opus 4.8 medium for pretty much all steps in the workflow.
+
+I've not heard of Orca ID. Orca ID. Okay. Lifecycle one linear status to respine orthogonal facets. So, I think what we need to keep track of here is what platforms the video has been posted to.
+
+And from there we can figure out in the UI whether it has been posted to all of them. We can figure out from the videos um on file system status. Whether it has been exported or not.
+
+Why do I do medium over X over high? Um There's a trade-off with effort, right? With what you're trading with effort is you're trading quality versus latency. The higher you go, the more tokens are
+
+spent and the higher latency you get for diminishing returns in terms of effort or in terms of quality. So, I tend to I've just found that medium fits the way I like to work best.
+
+I feel like I don't need a very smart model and I feel that Opus medium is perfectly smart enough for me. Okay, what's the shape of that posted platform record where does it live? Platform
+
+remote ID is nice, yeah. Remote URL is nice. Yeah, I really like that. I really like that. Each post carries more than a Boolean, yep. Yeah, that's excellent. Note, by the way, that we are vibe
+
+coding here. We're just vibe coding within prototypes. Right? Those prototypes are then going to go uh and feed into a spec and that spec is going to be the thing that we get that gets shipped.
+
+I've got about 10 minutes left, by the way. Render contract between CVM and the extractor renderer. CVM passes props explicitly. Yeah, if that's possible, then great. What post it means for the final
+
+version? Okay. B, okay, so TikTok's apps draft. So, you finish posting by hand of the TikTok app. Public posting audit gate. What's that? I'm lacking a bit of context here. Can
+
+you tell me what the public posting audit gate in TikTok is? Usually what I do is I um create a PR that references the issue, and then when the PR gets merged, the issue just gets closed.
+
+Yeah, this workflow um should work in open code. Where does the render actually execute locally or remotely lambda? It executes locally. I'm using Whisper flow to dictate.
+
+Codebase design should be part of improved codebase architecture, which should be something that you run every so often on your code. And um maybe as part of review, but review kind
+
+of has its own baked-in concept of what it's looking for. So, yeah, maybe during planning is a good one. Where would you recommend putting a shared kernel of knowledge? Um probably
+
+you're talking about a knowledge base. Um maybe in its own wiki repo or in a third-party service like Notion or Google Docs or something. How do I recommend teams work together
+
+with their dot scratch? Um I recommend not using local markdown. I would This is brownfield code. Yes, we're using wave Wayfinder on brownfield code. I think that brownfield versus
+
+greenfield is is kind of BS, actually. I don't think it's as big a difference as people think. Option A sharpened extract local shell out CVM owns the glue. Yes, okay. Looks fabulous.
+
+Cool. So, that is a grilling ticket. Um figure it out. We're really getting close now. So, pick variant A. That's another prototype ticket that we've got done. Posting life cycle, okay.
+
+So, okay. Tik Tok Tik Tok's content posted API treats every app as an un-audited until Tik Tok reviews and approves it. That review is called the audit. What un-audited costs every post is forced to
+
+Um  yeah, that's fine. You must build Tik Tok's full mandated content sharing guidelines UX and size CVM before they'll even review you. Privacy drop down with no default grayed
+
+out disabled to bloody hell.  Okay. Damn, this is brutal. So, it means that Tik Tok um needs ord needs to audit every post I send or something or there are some onerous requirements to do this. Ouch.
+
+So, this is something that we've hit now that is a real blocker for us. Um and I do have an idea for how we can get around it. Yeah, this works in Codex. So, okay. I did have an implementation of this
+
+before and it used Buffer to queue up videos, which is kind of nice. And I think what I want to do is to make a decision ticket to figure out whether we can use Buffer here instead
+
+because the Buffer API is easy to use. Um although actually the way I did it was I uploaded it into a Dropbox then Zapier um detected that and then uploaded it to Buffer.
+
+And that's fine. I can do that again. That makes our flow a lot easier. We don't actually need to look at any existing APIs, but I will need to pay for Buffer, of course. But paying for
+
+Buffer is a small price to pay uh compared to having to do this crazy TikTok stuff. Let's have a chat about that now before we figure out whether we're going to put a decision ticket.
+
+Yeah, everybody's grilling me, man. Everybody's grilling me. Yeah, these tickets are just a way of tracking the progress through the fog, essentially. All right, I got about 5 minutes left.
+
+Mhm. CVM tracks a single binary cute handles of fact per video. Hang on. I might need to go fairly soon. I got 5 minutes. Okay, I'll tell you what, let's wrap up
+
+because I'm not going to get to the end of the map. This is a big chunky feature. We've done pretty well. We've got eight out of nine tasks done. And you can see that the
+
+um decisions so far in the map itself have been fleshed out a bit and each of them link out to a sub-issue. Hang on 2 seconds. There we go. Car related issues. Sorry, I'll be down in a sec. So,
+
+we've done pretty well. Um we've finished up and this and let me refresh the map just so we get a full sense. We can see the decisions are so far have been recorded in the proper map.
+
+They all link out to research stuff. We've done been able to get a huge amount of work done in pretty little time. It's pretty sweet. I love doing this stuff. I love the feeling the way finder
+
+gives me that I'm always in control that it's kind of like figuring out the way for me and I just have to handle the tickets as we go. It's pretty great. You here for a skive? Good for you, fuzzy.
+
+So, I'm I would love to hear how you get on with way finder. And what this new feeling gives you because what I know is when I get to the end of a way finder spec, I end up with a spec
+
+or sorry, a way finder map. I end up with a spec that's incredibly detailed and links back to all of the decisions that I made and all of the decisions that I made are um in minute detail.
+
+To spec seal is identified as high risk, I need to figure that out. I saw that. I do still use sandcastle. Yep, sandcastle drives all of my implementation. I use um Opus 4.8 medium.
+
+With the orchestrator, we don't have to manually invoke other skills. Um as soon as I get to the spec, then I take this back and I turn it into tickets and those tickets are I can
+
+probably find a couple. Um they're usually so I've got wow, 1,000 closed tickets here. Uh where are we? Yeah, here we go. Here's a spec. Diagram content search on the diagrams
+
+page. This was from a wayfinder thing, I think. Yeah, there we go. So, all of these little links out, these are wayfinder grilling tickets. There's another wayfinder research there
+
+and so these are context pointers that the agent can walk down to find more information. Super good. And we can see here that it had six subtasks, each of which are steps that it's going
+
+to take. And then what it did was it produced this PR. And this PR is about 5,000 lines of code. Um let's see if I can find the GitHub actions that worked on it. Can I do that? I'm not sure if I can.
+
+But essentially, a GitHub action just worked through each ticket in a separate session and bam, produced all this code. Which OS am I on? I'm on WSL. And that's it, folks. Um
+
+hopefully this gave you a sense for what you can do with Wayfinder and the process that you walk through it. I think the most confusing thing is the idea that you use Wayfinder for
+
+everything. You don't use any of the sub-skills. And yeah, we're good to go. You can absolutely use it to use linear instead. You can do To Doist. You can do Jira, whatever you want.
+
+I'm going to slow down, pal. Declarative partial updates. Um I don't have a schedule for going live. Um I try not to have any schedule for content creation because I hate the
+
+feeling of being on a treadmill. What I like the feeling of doing is producing courses, producing good stuff, working on the skills like the my open source work always feels like
+
+the highest priority thing to me because everything else flows from there. If I'm not shipping stuff, then I don't have anything to create content about. So, that's the idea.
+
+There is an open ticket to handle multi-repo setups on Sandcastle, and I'm starting to feel the urge myself. Um but yeah, I haven't implemented it yet. Right, I better go and fix my son's car. Um
+
+thanks so much for joining. Oh, yeah. Let me Let me just finish off. So, what I would do after this is I would try to get the Wayfinder stuff, um get the map to completion, so complete
+
+all the tickets. Once that's done, then I would turn it into a spec with to spec, and then close the Wayfinder map cuz I don't need it anymore. And then to tickets, so I turn that into
+
+sub-tasks. Then I would implement each sub task in a separate context window, usually with an AFK agent cuz I'm not needed for that, and then I do a code review on the whole diff and um
+
+fix any problems, and then it goes to human review. There we go. Uh if you have any questions about this, by the way, then you can use my ask Matt skill. That's the place to go for
+
+feedback. And if you want to keep up to date with this stuff, then you should go to AI Hero uh subscribe to my skills. Yeah, you just give the map ticket to to spec. You fresh session, just get it to
+
+explore the the map and turn into a big spec. Um uh so yeah, I just one more. So, no, these There's a difference between the decision tickets that Wayfinder makes
+
+and the implementation tickets that to tickets creates. Cuz the decision tickets can only be resolved by uh resolving the decision, by making the decision. Whereas the implementation
+
+tickets are when those decisions are reified in the code or represented in the code. Love to see the rest of the flow. Yeah. Yeah, uh you often have to ask if you're done yet or not. So,
+
+that is annoying, and I agree. What I do is I generally just like watch the um I just watch the map as I was doing here, and I just look at the sub issues, and I can just see visually what's
+
+needed and what isn't. For back end, yes, you can use it. For front end, you can use it. For middle end, you can use it.
