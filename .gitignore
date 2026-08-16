@@ -17,3 +17,9 @@ wheels/
 
 # Local codebase analysis
 graphify-out/
+
+# Environment variables
+.env
+*.env
+!.env.example
+
