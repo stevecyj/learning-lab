@@ -127,6 +127,23 @@ cd mysql-learning
 | **停止並刪除容器**   | `docker compose down`          | 移除容器與網路，**保留 Named Volume 資料**      |
 | **清空資料重新開始** | `docker compose down -v`       | 移除容器並**刪除 Named Volume**（資料全部清除） |
 
+#### 常用參數拆解與記憶法
+
+- `-d`（`--detach`，背景分離模式）：
+  - **意思**：讓容器在背景獨立執行，把終端機（Terminal）的控制權立即釋放出來。
+  - **如果沒加**：終端機會停留在容器前台印日誌；若按 `Ctrl+C` 就會直接停止容器。
+- `-f`（`--follow`，持續追蹤）：
+  - **意思**：持續監聽並即時輸出最新的日誌（類似 Linux 的 `tail -f`）。
+  - **操作技巧**：按 `Ctrl+C` 只會離開監看畫面，**不會**停止容器運行。
+- `-v`（`--volumes`，刪除資料卷）：
+  - **意思**：在執行 `down` 移除容器時，連同 `compose.yaml` 定義的具名資料卷（Named Volume，如 `mysql_data`）一併刪除。
+  - **核心差異**：
+    - `docker compose down`：刪除容器與網路，**保留資料卷**（下次啟動時資料庫內容仍在）。
+    - `docker compose down -v`：刪除容器、網路並**徹底清空資料庫硬碟資料**（完全重置環境時使用）。
+- 指令結尾的 `mysql`（指定服務）：
+  - **意思**：指定操作 `compose.yaml` 裡名為 `mysql` 的服務（`services.mysql`）。
+  - **如果省略**：例如 `docker compose logs -f`，會同時顯示 Compose 專案內所有服務的日誌。
+
 ### 2. 進入 MySQL 指令列
 
 使用一般帳號（`steve`）連線：
@@ -144,6 +161,16 @@ docker compose exec mysql mysql -u root -p
 ```
 
 _提示密碼時輸入 `root`。_
+
+#### 連線指令參數拆解（為什麼有兩個 mysql？）
+
+以 `docker compose exec mysql mysql -u steve -p` 為例：
+
+- `exec`（Execute）：在**已經處於 Running 狀態**的容器內部執行程式。
+- 第一個 `mysql`（目標服務）：告知 Docker Compose 要進入哪一個容器（對應 `compose.yaml` 裡的 `services.mysql`）。
+- 第二個 `mysql`（容器內程式）：在容器內啟動 MySQL CLI 用戶端指令（`/usr/bin/mysql`）。
+- `-u steve`（`--user`，使用者）：指定登入 MySQL 的使用者帳號。
+- `-p`（`--password`，密碼提示）：通知系統在按下 Enter 後以隱藏字元提示輸入密碼（Prompt for password），避免明文密碼留在終端機歷史紀錄中。
 
 連線後即可執行 SQL：
 
