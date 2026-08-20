@@ -21,6 +21,10 @@ GRANT SELECT, INSERT, UPDATE, DELETE
 --
 show grants for 'grade_app'@'%';
 
+--
+select USER, HOST
+from mysql.user;
+
 -- 建立 students table
 USE mydatabase;
 
@@ -59,3 +63,5 @@ CREATE TABLE IF NOT EXISTS students (
 -- 建完 students 後驗證
 show create table students;
 describe students;
+
+select user();
