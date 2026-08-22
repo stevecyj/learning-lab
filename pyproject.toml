@@ -20,3 +20,8 @@ python-course = "python_course:main"
 [build-system]
 requires = ["uv_build>=0.12.1,<0.13.0"]
 build-backend = "uv_build"
+
+[tool.uv]
+# 專案在 /Volumes/data，uv 快取在 ~/.cache，跨檔案系統無法 hardlink／clone。
+# 明確指定 copy，避免每次 uv sync 都跳 fallback 警告。
+link-mode = "copy"
