@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SDKMAN! + Gradle Wrapper，超簡單圖解</title>
+  <style>
+    :root {
+      --ink: #202124;
+      --paper: #fffdf5;
+      --java: #f58b44;
+      --sdk: #6e5ae6;
+      --gradle: #22a699;
+      --soft: #f1ecff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: ui-rounded, "SF Pro Rounded", "PingFang TC", sans-serif;
+    }
+    main { max-width: 980px; margin: auto; padding: 32px 20px 72px; }
+    h1 { font-size: clamp(2.2rem, 7vw, 5rem); margin: 0; line-height: 1.05; }
+    h2 { font-size: clamp(1.8rem, 5vw, 3rem); margin: 0 0 24px; }
+    p { font-size: clamp(1.1rem, 2.5vw, 1.45rem); line-height: 1.6; }
+    code { font-family: "SFMono-Regular", Consolas, monospace; }
+    .hero, .card, .finish {
+      border: 4px solid var(--ink);
+      border-radius: 28px;
+      box-shadow: 8px 8px 0 var(--ink);
+      margin-bottom: 34px;
+      padding: clamp(24px, 5vw, 48px);
+    }
+    .hero { background: #ffe07a; text-align: center; }
+    .hero .icons { font-size: clamp(4rem, 14vw, 9rem); margin: 28px 0 10px; }
+    .hero p { margin-bottom: 0; font-weight: 700; }
+    .two { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .card { margin: 0; background: white; }
+    .sdk { background: var(--soft); }
+    .gradle { background: #dff9f5; }
+    .big-icon { font-size: clamp(5rem, 15vw, 9rem); text-align: center; }
+    .label { text-align: center; font-size: 1.4rem; font-weight: 800; }
+    .arrow { text-align: center; font-size: 4rem; margin: 18px 0; }
+    .command {
+      display: block;
+      margin: 12px 0;
+      padding: 18px;
+      border: 3px solid var(--ink);
+      border-radius: 16px;
+      background: #16171a;
+      color: #f8f8f2;
+      font-size: clamp(.9rem, 2vw, 1.1rem);
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .steps { margin-top: 34px; }
+    .step {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      align-items: center;
+      gap: 20px;
+      margin: 22px 0;
+      padding: 22px;
+      border: 3px solid var(--ink);
+      border-radius: 22px;
+      background: white;
+    }
+    .number {
+      display: grid;
+      place-items: center;
+      width: 70px;
+      height: 70px;
+      border: 3px solid var(--ink);
+      border-radius: 50%;
+      background: var(--java);
+      font-size: 2rem;
+      font-weight: 900;
+    }
+    .step strong { display: block; font-size: 1.45rem; margin-bottom: 8px; }
+    .step code { font-size: 1rem; overflow-wrap: anywhere; }
+    .project {
+      padding: 24px;
+      border: 4px dashed var(--gradle);
+      border-radius: 22px;
+      background: white;
+      font: 700 1.15rem/1.9 "SFMono-Regular", Consolas, monospace;
+    }
+    .finish { margin-top: 34px; text-align: center; background: #ffafcc; }
+    .finish .formula { font-size: clamp(1.5rem, 4vw, 2.6rem); font-weight: 900; }
+    .tiny { font-size: 1rem; opacity: .75; }
+    @media (max-width: 680px) {
+      .two { grid-template-columns: 1fr; }
+      .step { grid-template-columns: 64px 1fr; }
+      .number { width: 58px; height: 58px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <h1>兩個小幫手</h1>
+      <div class="icons">🧰 ＋ 🎒</div>
+      <p>一個選 Java，一個照顧專案。</p>
+    </section>
+
+    <section class="two">
+      <article class="card sdk">
+        <div class="big-icon">🧰</div>
+        <h2>SDKMAN!</h2>
+        <p class="label">幫你換 JDK</p>
+        <code class="command">sdk use java 25-tem</code>
+        <div class="arrow">↕</div>
+        <code class="command">sdk use java 21-tem</code>
+      </article>
+
+      <article class="card gradle">
+        <div class="big-icon">🎒</div>
+        <h2>Gradle Wrapper</h2>
+        <p class="label">專案自己的工具箱</p>
+        <code class="command">./gradlew test</code>
+        <code class="command">./gradlew run</code>
+        <code class="command">./gradlew build</code>
+      </article>
+    </section>
+
+    <section class="steps">
+      <h2>第一次準備</h2>
+      <div class="step">
+        <span class="number">1</span>
+        <div><strong>裝 SDKMAN!</strong><code>curl -s "https://get.sdkman.io" | bash</code></div>
+      </div>
+      <div class="step">
+        <span class="number">2</span>
+        <div><strong>裝 Java</strong><code>sdk list java</code><br><code>sdk install java &lt;清單中的 Java 25 ID&gt;</code></div>
+      </div>
+      <div class="step">
+        <span class="number">3</span>
+        <div><strong>告訴專案用哪個 Java</strong><code>sdk env init</code></div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:34px">
+      <h2>專案盒子裡</h2>
+      <div class="project">
+        📄 .sdkmanrc　← JDK 版本<br>
+        🔧 gradlew　← Gradle 啟動鈕<br>
+        📁 gradle/wrapper/　← Gradle 版本<br>
+        📄 build.gradle.kts　← 套件清單
+      </div>
+    </section>
+
+    <section class="finish">
+      <h2>每天只做這樣</h2>
+      <p class="formula">📂 進專案 → 🧰 選 JDK → 🎒 跑 Gradle</p>
+      <code class="command">cd hello-java</code>
+      <code class="command">sdk env</code>
+      <code class="command">./gradlew run</code>
+      <p class="tiny">若開啟 SDKMAN! 自動切換，連 sdk env 都可以省略。</p>
+    </section>
+  </main>
+</body>
+</html>
